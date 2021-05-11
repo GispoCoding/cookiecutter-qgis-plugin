@@ -1,0 +1,16 @@
+[general]
+name={{cookiecutter.plugin_name}}
+description=
+about=
+version=0.0.1
+qgisMinimumVersion=3.10
+author=
+email=
+changelog=
+tags=
+repository=https://github.com/{{cookiecutter.github_organization}}/{{cookiecutter.project_directory}}
+homepage=https://github.com/{{cookiecutter.github_organization}}/{{cookiecutter.project_directory}}
+tracker=https://github.com/{{cookiecutter.github_organization}}/{{cookiecutter.project_directory}}/issues
+category=Plugins
+experimental=True
+deprecated=False

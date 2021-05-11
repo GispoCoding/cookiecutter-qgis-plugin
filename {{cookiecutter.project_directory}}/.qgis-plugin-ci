@@ -1,0 +1,5 @@
+plugin_path: {{cookiecutter.project_directory}}
+github_organization_slug: {{cookiecutter.github_organization}}
+project_slug: {{cookiecutter.project_directory}}
+transifex_coordinator: replace-me
+transifex_organization: replace-me

@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  release:
+    types: released
+
+jobs:
+  plugin_dst:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+
+      #    Needed if the plugin is using Transifex, to have the lrelease command
+      #    - name: Install Qt lrelease
+      #      run: sudo apt-get update && sudo apt-get install qt5-default qttools5-dev-tools
+
+      - name: Install qgis-plugin-ci
+        run: pip3 install qgis-plugin-ci
+
+      # When osgeo upload is wanted: --osgeo-username usrname --osgeo-password ${{ secrets.OSGEO_PASSWORD }}
+      # When Transifex is wanted: --transifex-token ${{ secrets.TRANSIFEX_TOKEN }}
+      - name: Deploy plugin
+        run: qgis-plugin-ci release ${GITHUB_REF/refs\/tags\//} --github-token ${{ secrets.GITHUB_TOKEN }} --disable-submodule-update

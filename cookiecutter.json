@@ -1,0 +1,14 @@
+{
+    "plugin_name": "My QGIS plugin",
+    "project_directory": "{{ cookiecutter.plugin_name|lower|replace(' ', '-') }}",
+    "plugin_package": "{{ cookiecutter.project_directory|replace('-', '') }}",
+    "github_organization": "GispoCoding",
+    "add_vscode_config": "n",
+    "add_pycharm_config": "n",
+    "license": ["GPL2", "GPL3", "other"],
+    "_copy_without_render": [
+        ".github/workflows/release.yml",
+        ".github/workflows/tests.yml",
+        "docs/push_translations.yml"
+    ]
+}

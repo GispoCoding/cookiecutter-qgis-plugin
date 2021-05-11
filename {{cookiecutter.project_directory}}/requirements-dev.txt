@@ -1,0 +1,3 @@
+pre-commit>=2.12.1
+pytest~=6.2.3
+qgis_plugin_ci~=1.8.4
