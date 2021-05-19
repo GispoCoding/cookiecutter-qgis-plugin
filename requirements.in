@@ -1,0 +1,18 @@
+cookiecutter
+pip-tools
+
+# Code quality
+# ------------------------------------------------------------------------------
+black
+isort
+flake8
+flake8-isort
+pre-commit
+
+# Testing
+# ------------------------------------------------------------------------------
+tox
+pytest
+pytest-cookies
+pytest-instafail
+pyyaml
