@@ -12,7 +12,6 @@ jobs:
       fail-fast: false
       matrix:
         tox-env:
-          - py37
           - py38
           - py39
           - black-template
