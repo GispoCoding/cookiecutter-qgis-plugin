@@ -1,9 +1,9 @@
 Development of {{cookiecutter.project_directory}} plugin
 ===========================
 
-This project uses [qgis_plugin_tools](https://github.com/{{cookiecutter.github_organization}}/qgis_plugin_tools) submodule, so when cloning
+This project uses [qgis_plugin_tools](https://github.com/{{cookiecutter.git_repo_organization}}/qgis_plugin_tools) submodule, so when cloning
 use `--recurse-submodules` like so:
-`git clone --recurse-submodules https://github.com/{{cookiecutter.github_organization}}/{{cookiecutter.project_directory}}.git`
+`git clone --recurse-submodules https://github.com/{{cookiecutter.git_repo_organization}}/{{cookiecutter.project_directory}}.git`
 
 The code for the plugin is in the [{{cookiecutter.project_directory}}](../{{cookiecutter.project_directory}}) folder. Make sure you have required tools, such as
 Qt with Qt Editor and Qt Linquist installed by following this
@@ -105,7 +105,7 @@ For step-by-step instructions, read the [translation tutorial](./translation_tut
 * Go to your Transifex site, add some languages and start translating
 * Copy [push_translations.yml](push_translations.yml) file to [workflows](../.github/workflows) folder to enable
   automatic pushing after commits to master
-* Add this badge ![](https://github.com/{{cookiecutter.github_organization}}/{{cookiecutter.project_directory}}/workflows/Translations/badge.svg) to
+* Add this badge ![](https://github.com/{{cookiecutter.git_repo_organization}}/{{cookiecutter.project_directory}}/workflows/Translations/badge.svg) to
   the [README](../README.md)
 
 ##### Pulling
