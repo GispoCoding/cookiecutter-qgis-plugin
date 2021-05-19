@@ -16,7 +16,7 @@ from ..qgis_plugin_tools.testing.utilities import get_qgis_app
 
 @pytest.fixture(autouse=True, scope="session")
 def initialize_qgis() -> Tuple[QgsApplication, QgsMapCanvas, QgisInterface, QWidget]:
-    """ Initializes qgis session for all tests """
+    """Initializes qgis session for all tests"""
     yield get_qgis_app()
 
 
