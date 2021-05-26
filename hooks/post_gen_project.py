@@ -64,11 +64,8 @@ def main():
     if "{{ cookiecutter.git_repo_url }}":
         add_remote()
 
-    if "{{ cookiecutter.version_control }}".lower() != "github":
+    if "{{ cookiecutter.ci_provider }}".lower() != "github":
         remove_github_files()
-
-    if "{{ cookiecutter.version_control }}".lower() != "gitlab":
-        remove_gitlab_files()
 
 
 if __name__ == "__main__":

@@ -16,20 +16,19 @@ def context():
         "plugin_name": "My QGIS plugin",
         "project_directory": "my-qgis-plugin",
         "plugin_package": "myqgisplugin",
-        "version_control": "GitHub",
         "git_repo_organization": "my-org",
         "git_repo_url": "https://github.com/my-org/my-qgis-plugin",
+        "ci_provider": "GitHub",
         "add_vscode_config": "n",
         "add_pycharm_config": "n",
         "license": "GPL2",
-        "use_qgis_plugin_tools": "n",
+        "use_qgis_plugin_tools": "n",  # to make test run faster
     }
 
 
 SUPPORTED_COMBINATIONS = [
-    {"version_control": "GitHub"},
-    {"version_control": "GitLab"},
-    {"version_control": "None"},
+    {"ci_provider": "GitHub"},
+    {"ci_provider": "None"},
     {"add_vscode_config": "y"},
     {"add_vscode_config": "n"},
     {"add_pycharm_config": "y"},
