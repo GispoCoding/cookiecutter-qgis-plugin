@@ -6,8 +6,8 @@ def check_package_name():
 
     if not package_name.isidentifier():
         print(
-            "ERROR: The plugin package name (%s) is not a valid Python package. Please do not use a - and use _ instead"
-            % package_name
+            "ERROR: The plugin package name (%s) is not a valid Python package. "
+            "Please do not use a - and use _ instead" % package_name
         )
 
         # Exit to cancel project

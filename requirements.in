@@ -1,5 +1,4 @@
 cookiecutter
-pip-tools
 
 # Code quality
 # ------------------------------------------------------------------------------
@@ -7,12 +6,12 @@ black
 isort
 flake8
 flake8-isort
+flake8-bugbear
+pep8-naming
 pre-commit
 
 # Testing
 # ------------------------------------------------------------------------------
-tox
 pytest
 pytest-cookies
 pytest-instafail
-pyyaml
