@@ -73,10 +73,10 @@ def test_project_generation(cookies, context, context_override):
     result = cookies.bake(extra_context={**context, **context_override})
     assert result.exit_code == 0
     assert result.exception is None
-    assert result.project.basename == context["project_directory"]
-    assert result.project.isdir()
+    assert result.project_path.name == context["project_directory"]
+    assert result.project_path.is_dir()
 
-    paths = build_files_list(str(result.project))
+    paths = build_files_list(str(result.project_path))
     assert paths
     check_paths(paths)
 
@@ -88,7 +88,7 @@ def test_flake8_passes(cookies, context, context_override):
     try:
         subprocess.check_output(
             ["flake8"],
-            cwd=str(baked_project.project),
+            cwd=str(baked_project.project_path),
             timeout=20,
             universal_newlines=True,
             stderr=subprocess.STDOUT,
@@ -107,7 +107,7 @@ def test_black_passes(cookies, context, context_override):
     try:
         subprocess.check_output(
             ["black", "--check", "--diff", "./"],
-            cwd=str(baked_project.project),
+            cwd=str(baked_project.project_path),
             timeout=20,
             universal_newlines=True,
             stderr=subprocess.STDOUT,
