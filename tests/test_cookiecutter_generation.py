@@ -90,7 +90,7 @@ def test_flake8_passes(cookies, context, context_override):
             ["flake8"],
             cwd=str(baked_project.project),
             timeout=20,
-            text=True,
+            universal_newlines=True,
             stderr=subprocess.STDOUT,
         )
     except subprocess.CalledProcessError as exc:
@@ -109,7 +109,7 @@ def test_black_passes(cookies, context, context_override):
             ["black", "--check", "--diff", "./"],
             cwd=str(baked_project.project),
             timeout=20,
-            text=True,
+            universal_newlines=True,
             stderr=subprocess.STDOUT,
         )
     except subprocess.CalledProcessError as exc:
