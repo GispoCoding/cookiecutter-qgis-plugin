@@ -5,9 +5,9 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction, QWidget
 from qgis.gui import QgisInterface
 
-from .qgis_plugin_tools.tools.custom_logging import setup_logger, teardown_logger
-from .qgis_plugin_tools.tools.i18n import setup_translation, tr
-from .qgis_plugin_tools.tools.resources import plugin_name
+from {{cookiecutter.plugin_package}}.qgis_plugin_tools.tools.custom_logging import setup_logger, teardown_logger
+from {{cookiecutter.plugin_package}}.qgis_plugin_tools.tools.i18n import setup_translation, tr
+from {{cookiecutter.plugin_package}}.qgis_plugin_tools.tools.resources import plugin_name
 
 
 class Plugin:
