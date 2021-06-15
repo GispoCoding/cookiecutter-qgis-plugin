@@ -2,10 +2,20 @@
     "plugin_name": "My QGIS plugin",
     "project_directory": "{{ cookiecutter.plugin_name|lower|replace(' ', '-') }}",
     "plugin_package": "{{ cookiecutter.project_directory|replace('-', '') }}",
-    "github_organization": "GispoCoding",
+    "git_repo_organization": "my-organization",
+    "git_repo_url": "https://github.com/{{cookiecutter.git_repo_organization}}/{{cookiecutter.project_directory}}",
+    "ci_provider": [
+        "GitHub",
+        "None"
+    ],
     "add_vscode_config": "n",
     "add_pycharm_config": "n",
-    "license": ["GPL2", "GPL3", "other"],
+    "license": [
+        "GPL2",
+        "GPL3",
+        "other"
+    ],
+    "use_qgis_plugin_tools": "y",
     "_copy_without_render": [
         ".github/workflows/release.yml",
         ".github/workflows/tests.yml",

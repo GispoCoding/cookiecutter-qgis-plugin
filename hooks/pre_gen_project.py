@@ -1,18 +1,30 @@
-import re
 import sys
 
 
-MODULE_REGEX = r'^[_a-zA-Z][_a-zA-Z0-9]+$'
+def check_package_name():
+    package_name = "{{ cookiecutter.plugin_package }}"
 
-module_name = '{{ cookiecutter.plugin_package }}'
+    if not package_name.isidentifier():
+        print(
+            "ERROR: The plugin package name (%s) is not a valid Python package. "
+            "Please do not use a - and use _ instead" % package_name
+        )
 
-if not re.match(MODULE_REGEX, module_name):
-    print('ERROR: The project slug (%s) is not a valid Python module name. Please do not use a - and use _ instead' % module_name)
+        # Exit to cancel project
+        sys.exit(1)
 
-    #Exit to cancel project
-    sys.exit(1)
 
-license = '{{ cookiecutter.license }}'
-if license == 'other':
-    print('QGIS plugins must comply with the GPL version 2 or greater license.')
-    sys.exit(1)
+def check_license():
+    license = "{{ cookiecutter.license }}".lower()
+    if license not in ("gpl2", "gpl3"):
+        print("QGIS plugins must comply with the GPL version 2 or greater license.")
+        sys.exit(1)
+
+
+def main():
+    check_package_name()
+    check_license()
+
+
+if __name__ == "__main__":
+    main()
