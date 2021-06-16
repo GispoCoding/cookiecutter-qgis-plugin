@@ -15,6 +15,7 @@ def _remove_file(filepath):
 
 def git_init():
     subprocess.call(["git", "init"])
+    subprocess.call(["git", "branch", "-m", "main"])
 
 
 def add_plugin_tools():
