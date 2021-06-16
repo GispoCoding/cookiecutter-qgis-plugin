@@ -1,0 +1,2 @@
+[report]
+omit = {{cookiecutter.plugin_package}}/qgis_plugin_tools/*
