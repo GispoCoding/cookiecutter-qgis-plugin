@@ -27,12 +27,12 @@ jobs:
           submodules: true
 
       - name: Pull qgis
-        run: docker pull qgis/qgis:${{ matrix.docker_tags }}
+        run: docker pull qgis/qgis:{% raw %}${{ matrix.docker_tags }}{% endraw %}
       # Runs all tests
       - name: Run tests
         run: |
           docker run --rm --net=host --volume `pwd`:/app -w=/app -e QGIS_PLUGIN_IN_CI=1
-          qgis/qgis:${{ matrix.docker_tags }} sh -c
+          qgis/qgis:{% raw %}${{ matrix.docker_tags }}{% endraw %} sh -c
           "pip3 install -q pytest && xvfb-run -s '+extension GLX -screen 0 1024x768x24' pytest -v"
 
   cov_tests:

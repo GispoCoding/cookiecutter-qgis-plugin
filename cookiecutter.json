@@ -18,7 +18,6 @@
     "use_qgis_plugin_tools": "y",
     "_copy_without_render": [
         ".github/workflows/release.yml",
-        ".github/workflows/tests.yml",
         "docs/push_translations.yml"
     ]
 }
