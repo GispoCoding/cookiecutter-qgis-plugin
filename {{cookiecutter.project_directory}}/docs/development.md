@@ -48,12 +48,14 @@ For example to disable typing, remove mypy hook and flake8-annotations from the 
 
 If you create or edit source files make sure that:
 
-* they contain relative imports
+* they contain absolute imports:
     ```python
 
-    from ..utils.exceptions import TestException # Good
+    from {{cookiecutter.plugin_package}}.utils.exceptions import TestException # Good
 
-    from {{cookiecutter.project_directory}}.utils.exceptions import TestException # Bad
+    from ..utils.exceptions import TestException # Bad
+
+
     ```
 * they will be found by [build.py](../{{cookiecutter.project_directory}}/build.py) script (`py_files` and `ui_files` values)
 * you consider adding test files for the new functionality

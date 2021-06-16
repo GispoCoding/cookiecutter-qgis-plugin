@@ -1,8 +1,8 @@
-import os  # noqa F401
+import os
 
 from qgis.gui import QgisInterface
 
-from .qgis_plugin_tools.infrastructure.debugging import setup_pydevd
+from {{cookiecutter.plugin_package}}.qgis_plugin_tools.infrastructure.debugging import setup_pydevd
 
 if os.environ.get("QGIS_PLUGIN_USE_DEBUGGER") == "pydevd":
     if (
@@ -13,6 +13,6 @@ if os.environ.get("QGIS_PLUGIN_USE_DEBUGGER") == "pydevd":
 
 
 def classFactory(iface: QgisInterface):  # noqa N802
-    from .plugin import Plugin
+    from {{cookiecutter.plugin_package}}.plugin import Plugin
 
     return Plugin(iface)

@@ -10,8 +10,8 @@ from PyQt5.QtWidgets import QWidget
 from qgis.core import QgsApplication
 from qgis.gui import QgsMapCanvas
 
-from ..qgis_plugin_tools.testing.qgis_interface import QgisInterface
-from ..qgis_plugin_tools.testing.utilities import get_qgis_app
+from {{cookiecutter.plugin_package}}.qgis_plugin_tools.testing.qgis_interface import QgisInterface
+from {{cookiecutter.plugin_package}}.qgis_plugin_tools.testing.utilities import get_qgis_app
 
 
 @pytest.fixture(autouse=True, scope="session")
