@@ -2,7 +2,7 @@ import os
 
 from qgis.gui import QgisInterface
 
-from {{cookiecutter.plugin_package}}.qgis_plugin_tools.infrastructure.debugging import setup_pydevd  # noqa E501
+from {{cookiecutter.plugin_package}}.qgis_plugin_tools.infrastructure.debugging import setup_pydevd
 
 if os.environ.get("QGIS_PLUGIN_USE_DEBUGGER") == "pydevd":
     if (
