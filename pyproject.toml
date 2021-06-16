@@ -21,5 +21,4 @@ skip = "{{cookiecutter.project_directory}}"
 
 [tool.pytest.ini_options]
 addopts = "-v --tb=short"
-python_paths = "."
 norecursedirs = ".tox .git docs env {{cookiecutter.project_directory}}"
