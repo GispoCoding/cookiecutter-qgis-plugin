@@ -33,6 +33,7 @@ def context(session_context):
 
 
 SUPPORTED_COMBINATIONS = [
+    {"plugin_package": "hyperextralongpackagenametomessupimportformatting"},
     {"ci_provider": "GitHub"},
     {"ci_provider": "None"},
     {"add_vscode_config": "y"},
@@ -43,7 +44,9 @@ SUPPORTED_COMBINATIONS = [
     {"license": "GPL3"},
 ]
 
-UNSUPPORTED_COMBINATIONS = []
+UNSUPPORTED_COMBINATIONS = [
+    {"license": "other"},
+]
 
 
 def _fixture_id(ctx):
@@ -95,12 +98,12 @@ def test_project_generation(baked_project):
     check_paths(paths)
 
 
-def test_flake8_passes(baked_project):
-    """Generated project should pass flake8."""
+def run_cli_command(command, cwd):
+    cmd = command.split()
     try:
         subprocess.check_output(
-            ["flake8"],
-            cwd=str(baked_project.project_path),
+            cmd,
+            cwd=cwd,
             timeout=20,
             universal_newlines=True,
             stderr=subprocess.STDOUT,
@@ -108,23 +111,43 @@ def test_flake8_passes(baked_project):
     except subprocess.CalledProcessError as exc:
         pytest.fail(exc.output)
     except subprocess.TimeoutExpired:
-        pytest.fail("Flake8 timeouted")
+        pytest.fail("Command timeouted")
+
+
+def test_flake8_passes(baked_project):
+    """Generated project should pass flake8."""
+    if (
+        baked_project.context["plugin_package"]
+        == "hyperextralongpackagenametomessupimportformatting"
+    ):
+        pytest.xfail(
+            reason="long package names makes imports to be reformatted. TODO: fix"
+        )
+    run_cli_command("flake8", cwd=str(baked_project.project_path))
 
 
 def test_black_passes(baked_project):
     """Generated project should pass black."""
-    try:
-        subprocess.check_output(
-            ["black", "--check", "--diff", "./"],
-            cwd=str(baked_project.project_path),
-            timeout=20,
-            universal_newlines=True,
-            stderr=subprocess.STDOUT,
+    if (
+        baked_project.context["plugin_package"]
+        == "hyperextralongpackagenametomessupimportformatting"
+    ):
+        pytest.xfail(
+            reason="long package names makes imports to be reformatted. TODO: fix"
         )
-    except subprocess.CalledProcessError as exc:
-        pytest.fail(exc.output)
-    except subprocess.TimeoutExpired:
-        pytest.fail("black timeouted")
+    run_cli_command("black --check --diff ./", cwd=str(baked_project.project_path))
+
+
+def test_isort_passes(baked_project):
+    """Generated project should pass isort."""
+    if (
+        baked_project.context["plugin_package"]
+        == "hyperextralongpackagenametomessupimportformatting"
+    ):
+        pytest.xfail(
+            reason="long package names makes imports to be reformatted. TODO: fix"
+        )
+    run_cli_command("isort --check --diff .", cwd=str(baked_project.project_path))
 
 
 @pytest.mark.parametrize("package_name", ["invalid name", "1plugin"])
