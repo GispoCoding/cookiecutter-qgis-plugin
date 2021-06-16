@@ -5,8 +5,12 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction, QWidget
 from qgis.gui import QgisInterface
 
-from {{cookiecutter.plugin_package}}.qgis_plugin_tools.tools.custom_logging import setup_logger, teardown_logger
-from {{cookiecutter.plugin_package}}.qgis_plugin_tools.tools.i18n import setup_translation, tr
+{% if cookiecutter.plugin_package|length < 7 %}from {{cookiecutter.plugin_package}}.qgis_plugin_tools.tools.custom_logging import setup_logger, teardown_logger
+{% else %}from {{cookiecutter.plugin_package}}.qgis_plugin_tools.tools.custom_logging import (
+    setup_logger,
+    teardown_logger,
+)
+{% endif %}from {{cookiecutter.plugin_package}}.qgis_plugin_tools.tools.i18n import setup_translation, tr
 from {{cookiecutter.plugin_package}}.qgis_plugin_tools.tools.resources import plugin_name
 
 
