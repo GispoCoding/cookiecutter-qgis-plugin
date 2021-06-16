@@ -1,3 +1,4 @@
+import copy
 import os
 import re
 import subprocess
@@ -10,12 +11,12 @@ PATTERN = r"{{(\s?cookiecutter)[.](.*?)}}"
 RE_OBJ = re.compile(PATTERN)
 
 
-@pytest.fixture
-def context():
+@pytest.fixture(scope="session")
+def session_context():
     return {
         "plugin_name": "My QGIS plugin",
         "project_directory": "my-qgis-plugin",
-        "plugin_package": "myqgisplugin",
+        "plugin_package": "plugin",
         "git_repo_organization": "my-org",
         "git_repo_url": "https://github.com/my-org/my-qgis-plugin",
         "ci_provider": "GitHub",
@@ -24,6 +25,11 @@ def context():
         "license": "GPL2",
         "use_qgis_plugin_tools": "n",  # to make test run faster
     }
+
+
+@pytest.fixture
+def context(session_context):
+    yield copy.deepcopy(session_context)
 
 
 SUPPORTED_COMBINATIONS = [
@@ -66,25 +72,31 @@ def check_paths(paths):
             assert match is None, f"cookiecutter variable not replaced in {path}"
 
 
-@pytest.mark.parametrize("context_override", SUPPORTED_COMBINATIONS, ids=_fixture_id)
-def test_project_generation(cookies, context, context_override):
+@pytest.fixture(scope="session", params=SUPPORTED_COMBINATIONS, ids=_fixture_id)
+def baked_project(cookies_session, session_context, request):
+    context_override = request.param
+    baked_project = cookies_session.bake(
+        extra_context={**session_context, **context_override}
+    )
+
+    yield baked_project
+
+
+def test_project_generation(baked_project):
     """Test that project is generated and fully rendered."""
 
-    result = cookies.bake(extra_context={**context, **context_override})
-    assert result.exit_code == 0
-    assert result.exception is None
-    assert result.project_path.name == context["project_directory"]
-    assert result.project_path.is_dir()
+    assert baked_project.exit_code == 0
+    assert baked_project.exception is None
+    assert baked_project.project_path.name == baked_project.context["project_directory"]
+    assert baked_project.project_path.is_dir()
 
-    paths = build_files_list(str(result.project_path))
+    paths = build_files_list(str(baked_project.project_path))
     assert paths
     check_paths(paths)
 
 
-@pytest.mark.parametrize("context_override", SUPPORTED_COMBINATIONS, ids=_fixture_id)
-def test_flake8_passes(cookies, context, context_override):
+def test_flake8_passes(baked_project):
     """Generated project should pass flake8."""
-    baked_project = cookies.bake(extra_context={**context, **context_override})
     try:
         subprocess.check_output(
             ["flake8"],
@@ -99,11 +111,8 @@ def test_flake8_passes(cookies, context, context_override):
         pytest.fail("Flake8 timeouted")
 
 
-@pytest.mark.parametrize("context_override", SUPPORTED_COMBINATIONS, ids=_fixture_id)
-def test_black_passes(cookies, context, context_override):
+def test_black_passes(baked_project):
     """Generated project should pass black."""
-    baked_project = cookies.bake(extra_context={**context, **context_override})
-
     try:
         subprocess.check_output(
             ["black", "--check", "--diff", "./"],
