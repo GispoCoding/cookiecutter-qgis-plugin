@@ -1,0 +1,25 @@
+[tool.black]
+target-version = ['py36', 'py37', 'py38', 'py39']
+exclude = '''
+(
+  /(
+    | \.git
+    | \env
+    | \.env
+    | \venv
+    | \.venv
+  )/
+)
+'''
+force-exclude = "{{cookiecutter.project_directory}"
+
+[tool.isort]
+# Black compatible values for isort https://black.readthedocs.io/en/stable/compatible_configs.html#isort
+profile = "black"
+multi_line_output = 3
+skip = "{{cookiecutter.project_directory}}"
+
+[tool.pytest.ini_options]
+addopts = "-v --tb=short"
+python_paths = "."
+norecursedirs = ".tox .git docs env {{cookiecutter.project_directory}}"
