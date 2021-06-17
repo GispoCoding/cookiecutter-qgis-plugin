@@ -1,8 +1,11 @@
 Development of {{cookiecutter.project_directory}} plugin
 ===========================
 
-This project uses [qgis_plugin_tools](https://github.com/{{cookiecutter.git_repo_organization}}/qgis_plugin_tools) submodule, so when cloning
-use `--recurse-submodules` like so:
+
+This project uses [qgis_plugin_tools](https://github.com/{{cookiecutter.git_repo_organization}}/qgis_plugin_tools) submodule, 
+so set git setting value: `git config --global submodule.recurse true`.
+
+When cloning use `--recurse-submodules` like so:
 `git clone --recurse-submodules https://github.com/{{cookiecutter.git_repo_organization}}/{{cookiecutter.project_directory}}.git`
 
 When pulling from existing repo:
