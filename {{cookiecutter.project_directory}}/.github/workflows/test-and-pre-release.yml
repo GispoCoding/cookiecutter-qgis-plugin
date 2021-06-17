@@ -31,9 +31,8 @@ jobs:
 
       # Runs all tests
       - name: Run tests
-        run: |
-          docker run --rm --net=host --volume `pwd`:/app -w=/app -e QGIS_PLUGIN_IN_CI=1
-          qgis/qgis:{% raw %}${{ matrix.docker_tags }}{% endraw %} sh -c
+        run: >
+          docker run --rm --net=host --volume `pwd`:/app -w=/app -e QGIS_PLUGIN_IN_CI=1 qgis/qgis:{% raw %}${{ matrix.docker_tags }}{% endraw %} sh -c
           "pip3 install -q pytest pytest-cov && xvfb-run -s '+extension GLX -screen 0 1024x768x24'
           pytest -v --cov={{cookiecutter.plugin_package}} --cov-report=xml"
 
