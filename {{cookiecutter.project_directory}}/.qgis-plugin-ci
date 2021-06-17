@@ -1,4 +1,4 @@
-plugin_path: {{cookiecutter.project_directory}}
+plugin_path: {{cookiecutter.plugin_package}}
 github_organization_slug: {{cookiecutter.git_repo_organization}}
 project_slug: {{cookiecutter.project_directory}}
 transifex_coordinator: replace-me
