@@ -1,5 +1,4 @@
 import os
-import sys
 
 from qgis.gui import QgisInterface
 
@@ -8,11 +7,7 @@ from {{cookiecutter.plugin_package}}.qgis_plugin_tools.infrastructure.debugging 
 from {{cookiecutter.plugin_package}}.qgis_plugin_tools.infrastructure.debugging import setup_pydevd  # noqa F401
 
 debugger = os.environ.get("QGIS_PLUGIN_USE_DEBUGGER", "").lower()
-if (
-    debugger in {"pydevd", "ptvsd", "debugpy"}
-    and "pytest" not in sys.modules
-    and os.environ.get("QGIS_PLUGIN_IN_CI", "0") != "1"
-):
+if debugger in {"debugpy", "ptvsd", "pydevd"}:
     locals()["setup_" + debugger]()
 
 
