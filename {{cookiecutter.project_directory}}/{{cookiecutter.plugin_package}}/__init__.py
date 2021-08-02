@@ -14,4 +14,4 @@ if debugger in {"debugpy", "ptvsd", "pydevd"}:
 def classFactory(iface: QgisInterface):  # noqa N802
     from {{cookiecutter.plugin_package}}.plugin import Plugin
 
-    return Plugin(iface)
+    return Plugin()

@@ -33,7 +33,7 @@ jobs:
       - name: Run tests
         run: >
           docker run --rm --net=host --volume `pwd`:/app -w=/app -e QGIS_PLUGIN_IN_CI=1 qgis/qgis:{% raw %}${{ matrix.docker_tags }}{% endraw %} sh -c
-          "pip3 install -q pytest pytest-cov && xvfb-run -s '+extension GLX -screen 0 1024x768x24'
+          "pip3 install -qr requirements-dev.txt && xvfb-run -s '+extension GLX -screen 0 1024x768x24'
           pytest -v --cov={{cookiecutter.plugin_package}} --cov-report=xml"
 
       # Upload coverage report. Will not work if the repo is private
@@ -64,7 +64,7 @@ jobs:
         run: |
           $env:PATH="C:\Program Files\QGIS 3.16\bin;$env:PATH"
           $env:QGIS_PLUGIN_IN_CI=1
-          python-qgis-ltr.bat -m pip install -q pytest
+          python-qgis-ltr.bat -m pip install -qr requirements-dev.txt
           python-qgis-ltr.bat -m pytest -v
 
   pre-release:
