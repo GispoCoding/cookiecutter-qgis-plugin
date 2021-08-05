@@ -1,0 +1,9 @@
+[tool.isort]
+# Black compatible values for isort https://black.readthedocs.io/en/stable/compatible_configs.html#isort
+profile = "black"
+
+[tool.pytest.ini_options]
+addopts = "-v"
+
+[tool.coverage.report]
+omit = "{{cookiecutter.plugin_package}}/qgis_plugin_tools/*"
