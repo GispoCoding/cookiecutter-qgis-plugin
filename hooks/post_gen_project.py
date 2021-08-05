@@ -2,6 +2,8 @@ import os
 import shutil
 import subprocess
 
+ALL_TEMP_FOLDERS = ("licenses",)
+
 
 def _remove_dir(dirpath):
     if os.path.exists(dirpath):
@@ -38,6 +40,11 @@ def remove_pycharm_files():
     pass
 
 
+def remove_temp_folders():
+    for folder in ALL_TEMP_FOLDERS:
+        _remove_dir(folder)
+
+
 def remove_vscode_files():
     _remove_dir(".vscode")
 
@@ -67,6 +74,8 @@ def main():
 
     if "{{ cookiecutter.ci_provider }}".lower() != "github":
         remove_github_files()
+
+    remove_temp_folders()
 
 
 if __name__ == "__main__":
