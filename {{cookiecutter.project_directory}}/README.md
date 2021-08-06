@@ -1,7 +1,9 @@
 # {{cookiecutter.plugin_name}}
+{%- if cookiecutter.git_repo_hosting == "github.com" -%}
 ![tests](https://github.com/{{cookiecutter.git_repo_organization}}/{{cookiecutter.project_directory}}/workflows/Tests/badge.svg)
 [![codecov.io](https://codecov.io/github/{{cookiecutter.git_repo_organization}}/{{cookiecutter.project_directory}}/coverage.svg?branch=main)](https://codecov.io/github/{{cookiecutter.git_repo_organization}}/{{cookiecutter.project_directory}}?branch=main)
 ![release](https://github.com/{{cookiecutter.git_repo_organization}}/{{cookiecutter.project_directory}}/workflows/Release/badge.svg)
+{% endif %}
 {%- if cookiecutter.license == "GPL2" %}
 [![GPLv2 license](https://img.shields.io/badge/License-GPLv2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 {%- elif cookiecutter.license == "GPL3" %}
