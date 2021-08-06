@@ -2,7 +2,11 @@ import os
 import shutil
 import subprocess
 
-ALL_TEMP_FOLDERS = ("licenses",)
+ALL_TEMP_FOLDERS = ("licenses", "plugin_templates")
+QGIS_PLUGIN_TOOLS_SPECIFIC_FILES = (
+    "{{cookiecutter.plugin_package}}/build.py",
+    "test/test_plugin.py",
+)
 
 
 def _remove_dir(dirpath):
@@ -30,6 +34,11 @@ def add_plugin_tools():
             "{{cookiecutter.plugin_package}}/qgis_plugin_tools",
         ]
     )
+
+
+def remove_plugin_tools():
+    for file in QGIS_PLUGIN_TOOLS_SPECIFIC_FILES:
+        _remove_file(file)
 
 
 def add_remote():
@@ -62,6 +71,8 @@ def main():
 
     if "{{ cookiecutter.use_qgis_plugin_tools }}".lower() != "n":
         add_plugin_tools()
+    else:
+        remove_plugin_tools()
 
     if "{{ cookiecutter.add_pycharm_config }}".lower() == "n":
         remove_pycharm_files()

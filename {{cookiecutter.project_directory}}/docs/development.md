@@ -1,7 +1,7 @@
 Development of {{cookiecutter.project_directory}} plugin
 ===========================
 
-
+{% if cookiecutter.use_qgis_plugin_tools|lower != "n" -%}
 This project uses [qgis_plugin_tools](https://github.com/{{cookiecutter.git_repo_organization}}/qgis_plugin_tools) submodule,
 so set git setting value: `git config --global submodule.recurse true`.
 
@@ -13,19 +13,20 @@ When pulling from existing repo:
 git submodule init
 git submodule update
 ```
+{% endif %}
 
-
-The code for the plugin is in the [{{cookiecutter.project_directory}}](../{{cookiecutter.project_directory}}) folder. Make sure you have required tools, such as
+The code for the plugin is in the [{{cookiecutter.plugin_package}}](../{{cookiecutter.project_directory}}) folder. Make sure you have required tools, such as
 Qt with Qt Editor and Qt Linquist installed by following this
 [tutorial](https://www.qgistutorials.com/en/docs/3/building_a_python_plugin.html#get-the-tools).
 
+{% if cookiecutter.use_qgis_plugin_tools|lower != "n" -%}
 For building the plugin use platform independent [build.py](../{{cookiecutter.project_directory}}/build.py) script.
 
 ## Setting up development environment
 
 To get started with the development, follow these steps:
 
-1. Go to the  [{{cookiecutter.project_directory}}](../{{cookiecutter.project_directory}}) directory with a terminal
+1. Go to the  [{{cookiecutter.plugin_package}}](../{{cookiecutter.project_directory}}) directory with a terminal
 1. Create a new Python virtual environment with pre-commit using Python aware of QGIS libraries:
    ```shell
     python build.py venv
@@ -50,7 +51,7 @@ Now the development environment should be all-set.
 
 If you want to edit or disable some quite strict pre-commit scripts, edit .pre-commit-config.yaml.
 For example to disable typing, remove mypy hook and flake8-annotations from the file.
-
+{%- endif %}
 
 ## Adding or editing  source files
 
@@ -58,16 +59,17 @@ If you create or edit source files make sure that:
 
 * they contain absolute imports:
     ```python
-
     from {{cookiecutter.plugin_package}}.utils.exceptions import TestException # Good
 
     from ..utils.exceptions import TestException # Bad
 
-
     ```
+{%- if cookiecutter.use_qgis_plugin_tools|lower != "n" %}
 * they will be found by [build.py](../{{cookiecutter.plugin_package}}/build.py) script (`py_files` and `ui_files` values)
+{% endif %}
 * you consider adding test files for the new functionality
 
+{%- if cookiecutter.use_qgis_plugin_tools|lower != "n" %}
 ## Deployment
 
 Edit [build.py](../{{cookiecutter.plugin_package}}/build.py) to contain working values for *profile*, *lrelease* and *pyrcc*. If you are
@@ -81,6 +83,7 @@ python build.py deploy
 
 After deploying and restarting QGIS you should see the plugin in the QGIS installed plugins where you have to activate
 it.
+{% endif %}
 
 ## Testing
 
@@ -126,6 +129,7 @@ lrelease section as well. You can however pull manually to test the process.
 
 * Run `qgis-plugin-ci pull-translation --compile <your-transifex-token>`
 
+{%- if cookiecutter.use_qgis_plugin_tools|lower != "n" -%}
 #### Translating with QT Linguistic (if Transifex not available)
 
 The translation files are in [i18n](../{{cookiecutter.project_directory}}/resources/i18n) folder. Translatable content in python files is
@@ -144,6 +148,7 @@ Compile the translations to *.qm* files with:
 ```shell script
 python build.py transcompile
 ```
+{% endif %}
 
 ### Github Release
 
