@@ -1,0 +1,40 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"python.languageServer": "Pylance",
+		"python.testing.pytestEnabled": true,
+		"python.testing.pytestArgs": [
+			"test"
+		],
+		"python.testing.unittestEnabled": false,
+		"python.testing.nosetestsEnabled": false,
+		"python.linting.enabled": true,
+		"python.linting.flake8Enabled": true,
+		"python.linting.mypyEnabled": true,
+		"python.linting.pylintEnabled": false,
+		"python.pythonPath": ".venv\\Scripts\\python.exe",
+	},
+	"launch": {
+		"configurations": [
+			{
+				"name": "QGIS debugpy",
+				"type": "python",
+				"request": "attach",
+				"connect": {
+					"host": "localhost",
+					"port": 5678
+				},
+				"pathMappings": [
+					{
+						"localRoot": "${workspaceFolder}/{{cookiecutter.plugin_package}}",
+						"remoteRoot": "${workspaceFolder}/{{cookiecutter.plugin_package}}"
+					}
+				]
+			}
+		],
+	}
+}

@@ -45,10 +45,6 @@ def add_remote():
     subprocess.call(["git", "remote", "add", "origin", "{{cookiecutter.git_repo_url}}"])
 
 
-def remove_pycharm_files():
-    pass
-
-
 def remove_temp_folders():
     for folder in ALL_TEMP_FOLDERS:
         _remove_dir(folder)
@@ -56,6 +52,8 @@ def remove_temp_folders():
 
 def remove_vscode_files():
     _remove_dir(".vscode")
+    _remove_file("{{cookiecutter.project_directory}}.code-workspace")
+    _remove_file("requirements-debug.txt")
 
 
 def remove_github_files():
@@ -73,9 +71,6 @@ def main():
         add_plugin_tools()
     else:
         remove_plugin_tools()
-
-    if "{{ cookiecutter.add_pycharm_config }}".lower() == "n":
-        remove_pycharm_files()
 
     if "{{ cookiecutter.add_vscode_config }}".lower() == "n":
         remove_vscode_files()
