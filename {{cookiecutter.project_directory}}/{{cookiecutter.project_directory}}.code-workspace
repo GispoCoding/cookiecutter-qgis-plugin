@@ -5,7 +5,7 @@
 		}
 	],
 	"settings": {
-		"python.languageServer": "Pylance",
+		"python.languageServer": "Jedi",
 		"python.testing.pytestEnabled": true,
 		"python.testing.pytestArgs": [
 			"test"
@@ -16,7 +16,7 @@
 		"python.linting.flake8Enabled": true,
 		"python.linting.mypyEnabled": true,
 		"python.linting.pylintEnabled": false,
-		"python.pythonPath": ".venv\\Scripts\\python.exe",
+		"python.defaultInterpreterPath": ".venv\\Scripts\\python.exe",
 	},
 	"launch": {
 		"configurations": [
