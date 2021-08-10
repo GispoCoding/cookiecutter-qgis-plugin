@@ -12,7 +12,11 @@ from qgis_plugin_tools.infrastructure.plugin_maker import PluginMaker
 #################################################
 """
 
-py_files = [fil for fil in glob.glob("**/*.py", recursive=True) if "test/" not in fil]
+py_files = [
+    fil
+    for fil in glob.glob("**/*.py", recursive=True)
+    if "test/" not in fil and "test\\" not in fil
+]
 locales = ["fi"]
 profile = "default"
 ui_files = list(glob.glob("**/*.ui", recursive=True))
