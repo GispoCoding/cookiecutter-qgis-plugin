@@ -31,10 +31,20 @@
 				"pathMappings": [
 					{
 						"localRoot": "${workspaceFolder}/{{cookiecutter.plugin_package}}",
-						"remoteRoot": "${workspaceFolder}/{{cookiecutter.plugin_package}}"
+						"remoteRoot": "C:/Users/${env:USERNAME}/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/{{cookiecutter.plugin_package}}"
 					}
 				]
-			}
+			},
+			{
+                "name": "Debug Tests",
+                "type": "python",
+                "request": "test",
+                "console": "integratedTerminal",
+                "justMyCode": false,
+                "env": {
+                    "PYTEST_ADDOPTS": "--no-cov"
+                }
+            }
 		],
 	}
 }
