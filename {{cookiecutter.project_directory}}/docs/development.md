@@ -35,7 +35,7 @@ To get started with the development, follow these steps:
    ```shell
     C:\OSGeo4W64\bin\python-qgis.bat build.py venv
    ```
-1. If you want to use IDE for development, it is best to start it with the
+1. **Note: This part is  only for developers that are using QGIS < 3.16.8.** If you want to use IDE for development, it is best to start it with the
    following way on Windows:
    ```shell
     :: Check out the arguments with python build.py start_ide -h
