@@ -2,14 +2,14 @@
     "plugin_name": "My QGIS plugin",
     "project_directory": "{{ cookiecutter.plugin_name|lower|replace(' ', '-') }}",
     "plugin_package": "{{ cookiecutter.project_directory|replace('-', '') }}",
+    "git_repo_hosting": "github.com",
     "git_repo_organization": "my-organization",
-    "git_repo_url": "https://github.com/{{cookiecutter.git_repo_organization}}/{{cookiecutter.project_directory}}",
+    "git_repo_url": "https://{{cookiecutter.git_repo_hosting}}/{{cookiecutter.git_repo_organization}}/{{cookiecutter.project_directory}}",
     "ci_provider": [
         "GitHub",
         "None"
     ],
     "add_vscode_config": "n",
-    "add_pycharm_config": "n",
     "license": [
         "GPL2",
         "GPL3",

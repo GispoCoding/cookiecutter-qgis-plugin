@@ -1,0 +1,50 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"python.languageServer": "Jedi",
+		"python.testing.pytestEnabled": true,
+		"python.testing.pytestArgs": [
+			"test"
+		],
+		"python.testing.unittestEnabled": false,
+		"python.testing.nosetestsEnabled": false,
+		"python.linting.enabled": true,
+		"python.linting.flake8Enabled": true,
+		"python.linting.mypyEnabled": true,
+		"python.linting.pylintEnabled": false,
+		"python.defaultInterpreterPath": ".venv\\Scripts\\python.exe",
+	},
+	"launch": {
+		"configurations": [
+			{
+				"name": "QGIS debugpy",
+				"type": "python",
+				"request": "attach",
+				"connect": {
+					"host": "localhost",
+					"port": 5678
+				},
+				"pathMappings": [
+					{
+						"localRoot": "${workspaceFolder}/{{cookiecutter.plugin_package}}",
+						"remoteRoot": "C:/Users/${env:USERNAME}/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/{{cookiecutter.plugin_package}}"
+					}
+				]
+			},
+			{
+                "name": "Debug Tests",
+                "type": "python",
+                "request": "test",
+                "console": "integratedTerminal",
+                "justMyCode": false,
+                "env": {
+                    "PYTEST_ADDOPTS": "--no-cov"
+                }
+            }
+		],
+	}
+}
