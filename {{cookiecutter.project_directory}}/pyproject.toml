@@ -6,4 +6,4 @@ profile = "black"
 addopts = "-v"
 
 [tool.coverage.report]
-omit = "{{cookiecutter.plugin_package}}/qgis_plugin_tools/*"
+omit = ["{{cookiecutter.plugin_package}}/qgis_plugin_tools/*"]
