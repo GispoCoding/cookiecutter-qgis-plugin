@@ -1,3 +1,8 @@
+{%- if cookiecutter.add_vscode_config != "n" -%}
+# Debugging
+debugpy~=1.4.1
+
+{% endif -%}
 # Testing
 pytest~=6.2.3
 pytest-cov~=2.12.1

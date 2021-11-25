@@ -52,7 +52,6 @@ def remove_temp_folders():
 def remove_vscode_files():
     _remove_dir(".vscode")
     _remove_file("{{cookiecutter.project_directory}}.code-workspace")
-    _remove_file("requirements-debug.txt")
 
 
 def remove_github_files():
