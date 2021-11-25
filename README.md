@@ -10,9 +10,9 @@ Powered by Cookiecutter, Cookiecutter QGIS Plugin is a framework for making the 
 
 ## Usage
 
-First, get Cookiecutter.
+First, get Cookiecutter and pip-tools.
 ```shell
-$ pip install cookiecutter
+$ pip install cookiecutter pip-tools
 ```
 
 Run cookiecutter giving this template repository as an argument. Run the command in the parent folder where you want the project folder to be created.

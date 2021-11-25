@@ -1,6 +1,7 @@
 import os
 import shutil
 import subprocess
+import sys
 
 ALL_TEMP_FOLDERS = ("licenses", "plugin_templates")
 QGIS_PLUGIN_TOOLS_SPECIFIC_FILES = (
@@ -44,6 +45,19 @@ def add_remote():
     subprocess.call(["git", "remote", "add", "origin", "{{cookiecutter.git_repo_url}}"])
 
 
+def write_dependencies():
+    subprocess.call(
+        [
+            sys.executable,
+            "-m",
+            "piptools",
+            "compile",
+            "--upgrade",
+            "requirements-dev.in",
+        ]
+    )
+
+
 def remove_temp_folders():
     for folder in ALL_TEMP_FOLDERS:
         _remove_dir(folder)
@@ -80,6 +94,7 @@ def main():
         remove_github_files()
 
     remove_temp_folders()
+    write_dependencies()
 
 
 if __name__ == "__main__":
