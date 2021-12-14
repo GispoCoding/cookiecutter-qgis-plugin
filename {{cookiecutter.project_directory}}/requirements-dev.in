@@ -1,0 +1,20 @@
+{%- if cookiecutter.add_vscode_config != "n" -%}
+# Debugging
+debugpy
+
+{% endif -%}
+# Testing
+pytest
+pytest-cov
+pytest-qgis
+
+# Linting and formatting
+pre-commit
+black
+isort
+mypy
+flake8
+flake8-bugbear
+pep8-naming
+flake8-annotations
+flake8-qgis

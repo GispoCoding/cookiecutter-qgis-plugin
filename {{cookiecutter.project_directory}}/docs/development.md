@@ -53,6 +53,13 @@ If you want to edit or disable some quite strict pre-commit scripts, edit .pre-c
 For example to disable typing, remove mypy hook and flake8-annotations from the file.
 {%- endif %}
 
+## Keeping dependencies up to date
+
+1. Activate the virtual environment.
+2. `pip install pip-tools`
+3. `pip-compile --upgrade requirements-dev.in`
+4. `pip install -r requirements-dev.txt` or `pip-sync requirements-dev.txt`
+
 ## Adding or editing  source files
 
 If you create or edit source files make sure that:
