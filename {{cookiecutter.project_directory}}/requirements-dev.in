@@ -3,6 +3,10 @@
 debugpy
 
 {% endif -%}
+
+# Dependency maintenance
+pip-tools
+
 # Testing
 pytest
 pytest-cov
@@ -18,3 +22,6 @@ flake8-bugbear
 pep8-naming
 flake8-annotations
 flake8-qgis
+
+# Stubs
+PyQt5-stubs
