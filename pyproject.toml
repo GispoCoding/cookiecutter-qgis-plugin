@@ -4,9 +4,9 @@ exclude = '''
 (
   /(
     | \.git
-    | \env
+    | env
     | \.env
-    | \venv
+    | venv
     | \.venv
   )/
 )
