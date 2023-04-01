@@ -1,9 +1,14 @@
 import copy
 import subprocess
 import sys
+from typing import TYPE_CHECKING, Dict
 
 import pytest
 from cookiecutter.exceptions import FailedHookException, UndefinedVariableInTemplate
+
+if TYPE_CHECKING:
+    from pytest import FixtureRequest
+    from pytest_cookies.plugin import Cookies, Result
 
 LONG_PACKAGE_NAME = "hyperextralongpackagenametomessupimportformatting"
 
@@ -25,7 +30,7 @@ def session_context():
 
 
 @pytest.fixture
-def context(session_context):
+def context(session_context: Dict[str, str]):
     yield copy.deepcopy(session_context)
 
 
@@ -46,13 +51,17 @@ UNSUPPORTED_COMBINATIONS = [
 ]
 
 
-def _fixture_id(ctx):
+def _fixture_id(ctx: Dict[str, str]):
     """Helper to get a user friendly test name from the parametrized context."""
     return "-".join(f"{key}:{value}" for key, value in ctx.items())
 
 
 @pytest.fixture(scope="session", params=SUPPORTED_COMBINATIONS, ids=_fixture_id)
-def baked_project(cookies_session, session_context, request):
+def baked_project(
+    cookies_session: "Cookies",
+    session_context: Dict[str, str],
+    request: "FixtureRequest",
+) -> "Result":
     context_override = request.param
     baked_project = cookies_session.bake(
         extra_context={**session_context, **context_override}
@@ -65,14 +74,14 @@ def baked_project(cookies_session, session_context, request):
     return baked_project
 
 
-def test_project_generation(baked_project):
+def test_project_generation(baked_project: "Result"):
     """Test that project is generated and fully rendered."""
 
     assert baked_project.project_path.name == baked_project.context["project_directory"]
     assert baked_project.project_path.is_dir()
 
 
-def run_cli_command(command, cwd):
+def run_cli_command(command: str, cwd: str):
     cmd = command.split()
     try:
         subprocess.check_output(
@@ -88,7 +97,7 @@ def run_cli_command(command, cwd):
         pytest.fail("Command timeouted")
 
 
-def test_flake8_passes(baked_project):
+def test_flake8_passes(baked_project: "Result"):
     """Generated project should pass flake8."""
 
     if baked_project.context["plugin_package"] == LONG_PACKAGE_NAME:
@@ -98,7 +107,7 @@ def test_flake8_passes(baked_project):
     run_cli_command("flake8", cwd=str(baked_project.project_path))
 
 
-def test_black_passes(baked_project):
+def test_black_passes(baked_project: "Result"):
     """Generated project should pass black."""
     if baked_project.context["plugin_package"] == LONG_PACKAGE_NAME:
         pytest.xfail(
@@ -107,7 +116,7 @@ def test_black_passes(baked_project):
     run_cli_command("black --check --diff ./", cwd=str(baked_project.project_path))
 
 
-def test_isort_passes(baked_project):
+def test_isort_passes(baked_project: "Result"):
     """Generated project should pass isort."""
     if baked_project.context["plugin_package"] == LONG_PACKAGE_NAME:
         pytest.xfail(
@@ -117,7 +126,9 @@ def test_isort_passes(baked_project):
 
 
 @pytest.mark.parametrize("package_name", ["invalid name", "1plugin"])
-def test_invalid_package_name(cookies, context, package_name):
+def test_invalid_package_name(
+    cookies: "Cookies", context: Dict[str, str], package_name: str
+):
     """Invalid package name should fail in pre-generation hook."""
     context.update({"plugin_package": package_name})
 
@@ -128,7 +139,9 @@ def test_invalid_package_name(cookies, context, package_name):
 
 
 @pytest.mark.parametrize("invalid_context", UNSUPPORTED_COMBINATIONS)
-def test_error_if_incompatible(cookies, context, invalid_context):
+def test_error_if_incompatible(
+    cookies: "Cookies", context: Dict[str, str], invalid_context: Dict[str, str]
+):
     """It should not generate project an incompatible combination is selected."""
     context.update(invalid_context)
     result = cookies.bake(extra_context=context)
