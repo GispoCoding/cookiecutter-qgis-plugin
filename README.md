@@ -14,7 +14,7 @@ Python >= 3.8 is required.
 
 First, get Cookiecutter and pip-tools.
 ```shell
-$ pip install cookiecutter pip-tools
+$ pip install --user cookiecutter pip-tools
 ```
 
 Run cookiecutter giving this template repository as an argument. Run the command in the parent folder where you want the project folder to be created.
@@ -29,13 +29,13 @@ You'll be asked some information which kind of a configuration you want to use w
 You should develop this template using virtual python environment. This way you can run tests in an isolated environment.
 
 ```bash
-$ python -m venv env
-$ source env/bin/activate # On Windows ./env/Scripts/activate
+$ python -m venv .venv
+$ source .venv/bin/activate # On Windows .venv/Scripts/activate
 $ pip install -r requirements.txt
 ```
 
 ### Update dependencies
-Dependencies are pinned to a exact versions so that tests are run in a reproducable environment also on CI.
+Dependencies are pinned to a exact versions so that tests are run in a reproduceable environment also on CI.
 
 ```bash
 # install pip-tools
@@ -44,7 +44,7 @@ $ pip install pip-tools
 # edit requirements.in
 
 # compile requirements.in to requirements.txt
-$ pip-compile
+$ pip-compile --resolver=backtracking
 # sync dependencies
 $ pip-sync
 

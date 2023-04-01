@@ -1,16 +1,5 @@
 [tool.black]
 target-version = ['py37', 'py38', 'py39', 'py310']
-exclude = '''
-(
-  /(
-    | \.git
-    | env
-    | \.env
-    | venv
-    | \.venv
-  )/
-)
-'''
 force-exclude = "{{cookiecutter.project_directory}"
 
 [tool.isort]
@@ -18,5 +7,5 @@ profile = "black"
 skip = "{{cookiecutter.project_directory}}"
 
 [tool.pytest.ini_options]
-addopts = "-v --tb=short"
+addopts = "-v --tb=short --instafail"
 testpaths = "tests"
