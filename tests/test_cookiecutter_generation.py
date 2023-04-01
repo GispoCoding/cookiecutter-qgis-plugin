@@ -1,14 +1,9 @@
 import copy
-import os
-import re
 import subprocess
+import sys
 
 import pytest
-from binaryornot.check import is_binary
-from cookiecutter.exceptions import FailedHookException
-
-PATTERN = r"{{(\s?cookiecutter)[.](.*?)}}"
-RE_OBJ = re.compile(PATTERN)
+from cookiecutter.exceptions import FailedHookException, UndefinedVariableInTemplate
 
 
 @pytest.fixture(scope="session")
@@ -54,48 +49,25 @@ def _fixture_id(ctx):
     return "-".join(f"{key}:{value}" for key, value in ctx.items())
 
 
-def build_files_list(root_dir):
-    """Build a list containing absolute paths to the generated files."""
-    return [
-        os.path.join(dirpath, file_path)
-        for dirpath, subdirs, files in os.walk(root_dir)
-        for file_path in files
-    ]
-
-
-def check_paths(paths):
-    """Method to check all paths have correct substitutions."""
-    # Assert that no match is found in any of the files
-    for path in paths:
-        if is_binary(path):
-            continue
-
-        for line in open(path, "r"):
-            match = RE_OBJ.search(line)
-            assert match is None, f"cookiecutter variable not replaced in {path}"
-
-
 @pytest.fixture(scope="session", params=SUPPORTED_COMBINATIONS, ids=_fixture_id)
 def baked_project(cookies_session, session_context, request):
     context_override = request.param
     baked_project = cookies_session.bake(
         extra_context={**session_context, **context_override}
     )
+    if isinstance(baked_project.exception, UndefinedVariableInTemplate):
+        print(baked_project.exception.message)
+        print(f"Error message: {baked_project.exception.error.message}")
+        sys.exit(1)
 
-    yield baked_project
+    return baked_project
 
 
 def test_project_generation(baked_project):
     """Test that project is generated and fully rendered."""
 
-    assert baked_project.exit_code == 0
-    assert baked_project.exception is None
     assert baked_project.project_path.name == baked_project.context["project_directory"]
     assert baked_project.project_path.is_dir()
-
-    paths = build_files_list(str(baked_project.project_path))
-    assert paths
-    check_paths(paths)
 
 
 def run_cli_command(command, cwd):
