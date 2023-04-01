@@ -5,6 +5,8 @@ import sys
 import pytest
 from cookiecutter.exceptions import FailedHookException, UndefinedVariableInTemplate
 
+LONG_PACKAGE_NAME = "hyperextralongpackagenametomessupimportformatting"
+
 
 @pytest.fixture(scope="session")
 def session_context():
@@ -28,7 +30,7 @@ def context(session_context):
 
 
 SUPPORTED_COMBINATIONS = [
-    {"plugin_package": "hyperextralongpackagenametomessupimportformatting"},
+    {"plugin_package": LONG_PACKAGE_NAME},
     {"ci_provider": "GitHub"},
     {"ci_provider": "None"},
     {"add_vscode_config": "y"},
@@ -88,10 +90,8 @@ def run_cli_command(command, cwd):
 
 def test_flake8_passes(baked_project):
     """Generated project should pass flake8."""
-    if (
-        baked_project.context["plugin_package"]
-        == "hyperextralongpackagenametomessupimportformatting"
-    ):
+
+    if baked_project.context["plugin_package"] == LONG_PACKAGE_NAME:
         pytest.xfail(
             reason="long package names makes imports to be reformatted. TODO: fix"
         )
@@ -100,10 +100,7 @@ def test_flake8_passes(baked_project):
 
 def test_black_passes(baked_project):
     """Generated project should pass black."""
-    if (
-        baked_project.context["plugin_package"]
-        == "hyperextralongpackagenametomessupimportformatting"
-    ):
+    if baked_project.context["plugin_package"] == LONG_PACKAGE_NAME:
         pytest.xfail(
             reason="long package names makes imports to be reformatted. TODO: fix"
         )
@@ -112,10 +109,7 @@ def test_black_passes(baked_project):
 
 def test_isort_passes(baked_project):
     """Generated project should pass isort."""
-    if (
-        baked_project.context["plugin_package"]
-        == "hyperextralongpackagenametomessupimportformatting"
-    ):
+    if baked_project.context["plugin_package"] == LONG_PACKAGE_NAME:
         pytest.xfail(
             reason="long package names makes imports to be reformatted. TODO: fix"
         )
