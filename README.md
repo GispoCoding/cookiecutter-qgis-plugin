@@ -10,6 +10,8 @@ Powered by Cookiecutter, Cookiecutter QGIS Plugin is a framework for making the 
 
 ## Usage
 
+Python >= 3.8 is required.
+
 First, get Cookiecutter and pip-tools.
 ```shell
 $ pip install cookiecutter pip-tools

@@ -3,5 +3,7 @@
 max-line-length = 88
 exclude = test_*
 extend-ignore =
-            E203, # whitespace before ':'
-            ANN101 # Missing type annotation for self in method
+    # E203: whitespace before ':'
+    E203,
+    # ANN101: Missing type annotation for self in method
+    ANN101
