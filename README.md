@@ -5,50 +5,64 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
+[Cookiecutter](https://www.cookiecutter.io) template for a [QGIS](https://qgis.org/) plugin.
 
-Powered by Cookiecutter, Cookiecutter QGIS Plugin is a framework for making the start of QGIS plugin development easy.
+This template makes it easy to create a new QGIS plugin project with a modern development environment.
 
 ## Usage
 
-Python >= 3.8 is required.
+Plugin generation is supported with Python 3.8 or newer.
 
-First, get Cookiecutter and pip-tools.
+### Prerequisites
+
+The template is built using [Cookiecutter](https://www.cookiecutter.io), so you must have it installed.
+
+#### Install Cookiecutter with pipx
+The recommended way to install Cookiecutter (and other Python cli tools) is to install it with [pipx](https://pypa.github.io/pipx/). Pipx will install the application in a isolated environment and make it available as a command line utility. To install `pipx` follow the instructions from https://github.com/pypa/pipx#install-pipx.
+
 ```shell
-$ pip install --user cookiecutter pip-tools
+pipx install cookiecutter
 ```
 
-Run cookiecutter giving this template repository as an argument. Run the command in the parent folder where you want the project folder to be created.
+#### Install Cookiecutter to your current python environment
 ```shell
-$ cookiecutter https://github.com/GispoCoding/cookiecutter-qgis-plugin
+pip install cookiecutter
 ```
 
-You'll be asked some information which kind of a configuration you want to use with your plugin.
+### Create a new plugin project
+Creating a new plugin project with Cookiecutter creates a new folder for the project so navigate to the desired parent directory and use the following command. Run Cookiecutter with this repository as the template. This command will set up your project based on the provided template
+```shell
+cookiecutter https://github.com/GispoCoding/cookiecutter-qgis-plugin
+```
 
 ## Development
 
-You should develop this template using virtual python environment. This way you can run tests in an isolated environment.
+You should develop this template using virtual python environment. This way you can install development dependencies and test the template without affecting your global python environment.
 
-```bash
-$ python -m venv .venv
-$ source .venv/bin/activate # On Windows .venv/Scripts/activate
-$ pip install -r requirements.txt
+```shell
+# Create a virtual python environment named .venv
+python -m venv .venv
+# Activate the virtual environment
+source .venv/bin/activate # On Windows run: .venv/Scripts/activate
+# Install pip-tools dependency manager
+pip install pip-tools
+# Install/sync development dependencies
+pip-sync  # This will sync dependecies in the current environment to mach the ones in requirements.txt
 ```
 
 ### Update dependencies
 Dependencies are pinned to a exact versions so that tests are run in a reproduceable environment also on CI.
 
-```bash
-# install pip-tools
-$ pip install pip-tools
 
-# edit requirements.in
+```shell
+# Edit requirements.in
 
-# compile requirements.in to requirements.txt
-$ pip-compile --resolver=backtracking
-# sync dependencies
-$ pip-sync
+# Compile requirements.in to requirements.txt
+pip-compile --resolver=backtracking
+# Sync dependencies
+pip-sync
 
-# commit requirements.in and requirements.txt
-$ git add requirements.in requirements.txt
-$ git commit -m "update dependencies"
+# Commit requirements.in and requirements.txt
+git add requirements.in requirements.txt
+git commit -m "Update development dependencies"
 ```
