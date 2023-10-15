@@ -3,6 +3,7 @@ import os
 import shutil
 import subprocess
 import sys
+from pathlib import Path
 from typing import List
 
 logger = logging.getLogger(__name__)
@@ -112,7 +113,17 @@ def remove_gitlab_files():
     _remove_file(".gitlab-ci.yml")
 
 
+def remove_jinja_extensions():
+    jinja_files = Path(".").rglob(
+        "*.j2",
+    )
+    for file in jinja_files:
+        os.rename(file, file.with_suffix(""))
+
+
 def main():
+    remove_jinja_extensions()
+
     git_init()
 
     if "{{ cookiecutter.use_qgis_plugin_tools }}".lower() != "n":
