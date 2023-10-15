@@ -1,11 +1,33 @@
 [tool.black]
-target-version = ['py37', 'py38', 'py39', 'py310']
-force-exclude = "{{cookiecutter.project_directory}"
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
+force-exclude = "{{cookiecutter.project_directory}}"
 
-[tool.isort]
-profile = "black"
-skip = "{{cookiecutter.project_directory}}"
 
 [tool.pytest.ini_options]
 addopts = "-v --tb=short --instafail"
 testpaths = "tests"
+
+
+[tool.ruff]
+select = [
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings
+    "F", # pyflakes
+    "I", # isort
+    "C", # flake8-comprehensions
+    "B", # flake8-bugbear
+    "N", # pep8-naming
+]
+ignore = []
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = [
+    "F401", # unused imports
+    "F841", # unused variables
+]
+
+# Same as Black.
+line-length = 88
+
+target-version = "py38"

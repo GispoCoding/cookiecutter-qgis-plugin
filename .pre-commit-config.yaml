@@ -3,25 +3,19 @@
 exclude: "{{cookiecutter.project_directory}}"
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-yaml
       - id: check-added-large-files
-  - repo: https://github.com/PyCQA/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
   - repo: https://github.com/psf/black
-    rev: 23.3.0
+    rev: 23.9.1
     hooks:
       - id: black
-  - repo: https://github.com/PyCQA/flake8
-    rev: 6.0.0
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.0.292
     hooks:
-      - id: flake8
-        additional_dependencies:
-          - flake8-bugbear~=23.3.23
-          - pep8-naming~=0.13.3
-          - flake8-qgis~=1.0.0
+      - id: ruff
+        args: ["--fix", "--exit-non-zero-on-fix", "--extend-fixable=F841,F401"]

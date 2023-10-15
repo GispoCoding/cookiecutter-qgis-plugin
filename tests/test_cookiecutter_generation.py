@@ -97,14 +97,14 @@ def run_cli_command(command: str, cwd: str):
         pytest.fail("Command timeouted")
 
 
-def test_flake8_passes(baked_project: "Result"):
-    """Generated project should pass flake8."""
+def test_ruff_passes(baked_project: "Result"):
+    """Generated project should pass ruff check."""
 
     if baked_project.context["plugin_package"] == LONG_PACKAGE_NAME:
         pytest.xfail(
             reason="long package names makes imports to be reformatted. TODO: fix"
         )
-    run_cli_command("flake8", cwd=str(baked_project.project_path))
+    run_cli_command("ruff .", cwd=str(baked_project.project_path))
 
 
 def test_black_passes(baked_project: "Result"):
@@ -114,15 +114,6 @@ def test_black_passes(baked_project: "Result"):
             reason="long package names makes imports to be reformatted. TODO: fix"
         )
     run_cli_command("black --check --diff ./", cwd=str(baked_project.project_path))
-
-
-def test_isort_passes(baked_project: "Result"):
-    """Generated project should pass isort."""
-    if baked_project.context["plugin_package"] == LONG_PACKAGE_NAME:
-        pytest.xfail(
-            reason="long package names makes imports to be reformatted. TODO: fix"
-        )
-    run_cli_command("isort --check --diff .", cwd=str(baked_project.project_path))
 
 
 @pytest.mark.parametrize("package_name", ["invalid name", "1plugin"])
