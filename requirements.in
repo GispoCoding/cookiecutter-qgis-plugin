@@ -12,3 +12,4 @@ pre-commit
 pytest
 pytest-cookies
 pytest-instafail
+pytest-xdist
