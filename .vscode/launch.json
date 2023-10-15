@@ -21,6 +21,9 @@
             ],
             "console": "integratedTerminal",
             "justMyCode": false,
+            "env": {
+                "PYTEST_ADDOPTS": "-n 0 --dist no"
+            }
         }
     ]
 }
