@@ -4,11 +4,7 @@ pip-tools
 # Code quality
 # ------------------------------------------------------------------------------
 black
-isort
-flake8
-flake8-isort
-flake8-bugbear
-pep8-naming
+ruff
 pre-commit
 
 # Testing
