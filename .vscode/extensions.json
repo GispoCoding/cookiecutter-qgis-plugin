@@ -2,6 +2,8 @@
     "recommendations": [
         "charliermarsh.ruff",
         "samuelcolvin.jinjahtml",
-        "ms-python.black-formatter"
+        "ms-python.black-formatter",
+        "ms-python.python",
+        "editorconfig.editorconfig"
     ]
 }
