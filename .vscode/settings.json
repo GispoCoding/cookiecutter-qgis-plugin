@@ -7,6 +7,9 @@
             "source.fixAll": true,
         }
     },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
     "black-formatter.importStrategy": "fromEnvironment",
     "python.testing.pytestArgs": [
         "tests"
