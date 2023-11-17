@@ -1,7 +1,7 @@
 {
     "editor.formatOnSave": true,
     "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.defaultFormatter": "charliermarsh.ruff",
         "editor.codeActionsOnSave": {
             "source.organizeImports": true,
             "source.fixAll": true,
@@ -10,7 +10,6 @@
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
-    "black-formatter.importStrategy": "fromEnvironment",
     "python.testing.pytestArgs": [
         "tests"
     ],
