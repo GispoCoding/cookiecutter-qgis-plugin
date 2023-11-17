@@ -5,7 +5,7 @@ from qgis.core import (
     QgsFeatureSink,
     QgsProcessing,
     QgsProcessingAlgorithm,
-    QgsProcessingException,
+    QgsProcessingContext,
     QgsProcessingFeedback,
     QgsProcessingParameterFeatureSink,
     QgsProcessingParameterFeatureSource,
@@ -37,10 +37,10 @@ class ProcessingAlgorithm(QgsProcessingAlgorithm):
     def __init__(self) -> None:
         super().__init__()
 
-        self._name = ""
-        self._display_name = ""
-        self._group = ""
+        self._name = "myprocessingalgorithm"
+        self._display_name = "My Processing Algorithm"
         self._group_id = ""
+        self._group = ""
         self._short_help_string = ""
 
     def tr(self, string) -> str:
@@ -49,7 +49,7 @@ class ProcessingAlgorithm(QgsProcessingAlgorithm):
         """
         return QCoreApplication.translate("Processing", string)
 
-    def createInstance(self):
+    def createInstance(self):  # noqa N802
         return ProcessingAlgorithm()
 
     def name(self) -> str:
@@ -62,14 +62,14 @@ class ProcessingAlgorithm(QgsProcessingAlgorithm):
         """
         return self._name
 
-    def displayName(self) -> str:
+    def displayName(self) -> str:  # noqa N802
         """
         Returns the translated algorithm name, which should be used for any
         user-visible display of the algorithm name.
         """
         return self.tr(self._display_name)
 
-    def groupId(self) -> str:
+    def groupId(self) -> str:  # noqa N802
         """
         Returns the unique ID of the group this algorithm belongs to. This
         string should be fixed for the algorithm, and must not be localised.
@@ -86,7 +86,7 @@ class ProcessingAlgorithm(QgsProcessingAlgorithm):
         """
         return self.tr(self._group)
 
-    def shortHelpString(self) -> str:
+    def shortHelpString(self) -> str:  # noqa N802
         """
         Returns a localised short helper string for the algorithm. This string
         should provide a basic description about what the algorithm does and the
@@ -94,7 +94,7 @@ class ProcessingAlgorithm(QgsProcessingAlgorithm):
         """
         return self.tr(self._short_help_string)
 
-    def initAlgorithm(self, config=None) -> dict:
+    def initAlgorithm(self, config=None) -> dict:  # noqa N802
         """
         Here we define the inputs and output of the algorithm, along
         with some other properties.
@@ -117,10 +117,10 @@ class ProcessingAlgorithm(QgsProcessingAlgorithm):
             QgsProcessingParameterFeatureSink(self.OUTPUT, self.tr("Output layer"))
         )
 
-    def processAlgorithm(
+    def processAlgorithm(  # noqa N802
         self,
         parameters: Dict[str, Any],
-        context: processing.QgsProcessingContext,
+        context: QgsProcessingContext,
         feedback: QgsProcessingFeedback,
     ):
         """
@@ -136,15 +136,6 @@ class ProcessingAlgorithm(QgsProcessingAlgorithm):
         # dictionary returned by the processAlgorithm function.
         source = self.parameterAsSource(parameters, self.INPUT, context)
 
-        # If source was not found, throw an exception to indicate that the algorithm
-        # encountered a fatal error. The exception text can be any string, but in this
-        # case we use the pre-built invalidSourceError method to return a standard
-        # helper text for when a source cannot be evaluated
-        if source is None:
-            raise QgsProcessingException(
-                self.invalidSourceError(parameters, self.INPUT)
-            )
-
         (sink, dest_id) = self.parameterAsSink(
             parameters,
             self.OUTPUT,
@@ -156,13 +147,6 @@ class ProcessingAlgorithm(QgsProcessingAlgorithm):
 
         # Send some information to the user
         feedback.pushInfo(f"CRS is {source.sourceCrs().authid()}")
-
-        # If sink was not created, throw an exception to indicate that the algorithm
-        # encountered a fatal error. The exception text can be any string, but in this
-        # case we use the pre-built invalidSinkError method to return a standard
-        # helper text for when a sink cannot be evaluated
-        if sink is None:
-            raise QgsProcessingException(self.invalidSinkError(parameters, self.OUTPUT))
 
         # Compute the number of steps to display within the progress bar and
         # get features from source
@@ -186,7 +170,7 @@ class ProcessingAlgorithm(QgsProcessingAlgorithm):
         # to the executed algorithm, and that the executed algorithm can send feedback
         # reports to the user (and correctly handle cancellation and progress reports!)
         if False:
-            buffered_layer = processing.run(
+            _buffered_layer = processing.run(
                 "native:buffer",
                 {
                     "INPUT": dest_id,

@@ -82,7 +82,7 @@ class Plugin:
 
         return action
 
-    def initProcessing(self):
+    def initProcessing(self):  # noqa N802
         self.provider = Provider()
         QgsApplication.processingRegistry().addProvider(self.provider)
 
@@ -95,6 +95,7 @@ class Plugin:
             parent=iface.mainWindow(),
             add_to_toolbar=False,
         )
+        self.initProcessing()
 
     def onClosePlugin(self) -> None:  # noqa N802
         """Cleanup necessary items here when plugin dockwidget is closed"""

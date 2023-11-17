@@ -1,5 +1,6 @@
 from typing import Callable, List, Optional
 
+from qgis.core import QgsApplication
 from qgis.PyQt.QtCore import QCoreApplication, QTranslator
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QWidget
@@ -105,6 +106,10 @@ class Plugin:
 
         return action
 
+    def initProcessing(self):  # noqa N802
+        self.provider = Provider()
+        QgsApplication.processingRegistry().addProvider(self.provider)
+
     def initGui(self) -> None:  # noqa N802
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
         self.add_action(
@@ -114,10 +119,7 @@ class Plugin:
             parent=iface.mainWindow(),
             add_to_toolbar=False,
         )
-
-    def initProcessing(self):
-        self.provider = Provider()
-        QgsApplication.processingRegistry().addProvider(self.provider)
+        self.initProcessing()
 
     def onClosePlugin(self) -> None:  # noqa N802
         """Cleanup necessary items here when plugin dockwidget is closed"""

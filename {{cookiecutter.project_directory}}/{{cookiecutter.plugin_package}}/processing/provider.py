@@ -1,5 +1,6 @@
-from processing_algorithm import ProcessingAlgorithm
 from qgis.core import QgsProcessingProvider
+
+from .processing_algorithm import ProcessingAlgorithm
 
 
 class Provider(QgsProcessingProvider):
@@ -35,7 +36,7 @@ class Provider(QgsProcessingProvider):
         """
         return QgsProcessingProvider.icon(self)
 
-    def loadAlgorithms(self) -> None:
+    def loadAlgorithms(self) -> None:  # noqa N802
         """
         Adds individual processing algorithms to the provider.
         """
