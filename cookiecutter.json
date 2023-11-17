@@ -15,6 +15,7 @@
         "GPL3",
         "other"
     ],
+    "include_processing": "n",
     "use_qgis_plugin_tools": "y",
     "_copy_without_render": [
         ".github/workflows/release.yml",
