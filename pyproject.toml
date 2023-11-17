@@ -1,8 +1,3 @@
-[tool.black]
-target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
-force-exclude = "{{cookiecutter.project_directory}}"
-
-
 [tool.pytest.ini_options]
 addopts = "-n auto"
 testpaths = "tests"
@@ -27,7 +22,6 @@ unfixable = [
     "F841", # unused variables
 ]
 
-# Same as Black.
 line-length = 88
 
 target-version = "py38"
