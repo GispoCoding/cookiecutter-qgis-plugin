@@ -1,15 +1,10 @@
 from typing import Any, Dict
 
 from qgis import processing
-from qgis.core import (
-    QgsFeatureSink,
-    QgsProcessing,
-    QgsProcessingAlgorithm,
-    QgsProcessingContext,
-    QgsProcessingFeedback,
-    QgsProcessingParameterFeatureSink,
-    QgsProcessingParameterFeatureSource,
-)
+from qgis.core import (QgsFeatureSink, QgsProcessing, QgsProcessingAlgorithm,
+                       QgsProcessingContext, QgsProcessingFeedback,
+                       QgsProcessingParameterFeatureSink,
+                       QgsProcessingParameterFeatureSource)
 from qgis.PyQt.QtCore import QCoreApplication
 
 
@@ -94,7 +89,7 @@ class ProcessingAlgorithm(QgsProcessingAlgorithm):
         """
         return self.tr(self._short_help_string)
 
-    def initAlgorithm(self, config=None) -> dict:  # noqa N802
+    def initAlgorithm(self, config=None):  # noqa N802
         """
         Here we define the inputs and output of the algorithm, along
         with some other properties.
@@ -122,7 +117,7 @@ class ProcessingAlgorithm(QgsProcessingAlgorithm):
         parameters: Dict[str, Any],
         context: QgsProcessingContext,
         feedback: QgsProcessingFeedback,
-    ):
+    ) -> dict:
         """
         Here is where the processing itself takes place.
         """
