@@ -1,10 +1,15 @@
 from typing import Any, Dict
 
 from qgis import processing
-from qgis.core import (QgsFeatureSink, QgsProcessing, QgsProcessingAlgorithm,
-                       QgsProcessingContext, QgsProcessingFeedback,
-                       QgsProcessingParameterFeatureSink,
-                       QgsProcessingParameterFeatureSource)
+from qgis.core import (
+    QgsFeatureSink,
+    QgsProcessing,
+    QgsProcessingAlgorithm,
+    QgsProcessingContext,
+    QgsProcessingFeedback,
+    QgsProcessingParameterFeatureSink,
+    QgsProcessingParameterFeatureSource,
+)
 from qgis.PyQt.QtCore import QCoreApplication
 
 
