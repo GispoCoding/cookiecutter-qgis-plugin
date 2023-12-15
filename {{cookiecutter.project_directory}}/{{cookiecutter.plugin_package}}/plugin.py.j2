@@ -1,9 +1,5 @@
-{%- if cookiecutter.use_qgis_plugin_tools|lower != "n" and cookiecutter.include_processing|lower != "n" -%}
-{%- include 'plugin_templates/plugin_with_submodule_with_provider.py.j2' -%}
-{%- elif cookiecutter.use_qgis_plugin_tools|lower != "n" and cookiecutter.include_processing|lower == "n" -%}
-{%- include 'plugin_templates/plugin_with_submodule_without_provider.py.j2' -%}
-{%- elif cookiecutter.use_qgis_plugin_tools|lower == "n" and cookiecutter.include_processing|lower != "n" -%}
-{%- include 'plugin_templates/plugin_without_submodule_with_provider.py.j2' -%}
+{%- if cookiecutter.use_qgis_plugin_tools|lower != "n" -%}
+{%- include 'plugin_templates/plugin_with_submodule.py.j2' -%}
 {%- else -%}
-{%- include 'plugin_templates/plugin_without_submodule_without_provider.py.j2' -%}
+{%- include 'plugin_templates/plugin_without_submodule.py.j2' -%}
 {%- endif -%}
