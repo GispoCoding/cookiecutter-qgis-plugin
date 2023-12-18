@@ -121,6 +121,10 @@ def remove_jinja_extensions():
         os.rename(file, file.with_suffix(""))
 
 
+def remove_processing_files():
+    _remove_dir("{{cookiecutter.project_directory}}/processing")
+
+
 def main():
     remove_jinja_extensions()
 
@@ -139,6 +143,9 @@ def main():
 
     if "{{ cookiecutter.ci_provider }}".lower() != "github":
         remove_github_files()
+
+    if "{{ cookiecutter.include_processing }}".lower() == "n":
+        remove_processing_files()
 
     remove_temp_folders()
     write_dependencies()

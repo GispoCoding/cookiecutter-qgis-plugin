@@ -1,9 +1,14 @@
 from typing import Callable, List, Optional
 
+{% if cookiecutter.include_processing|lower == "y" -%}
+from qgis.core import QgsApplication
+{% endif -%}
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QWidget
 from qgis.utils import iface
-
+{% if cookiecutter.include_processing|lower == "y" -%}
+from {{cookiecutter.plugin_package}}.processing.provider import Provider
+{% endif -%}
 
 class Plugin:
     """QGIS Plugin Implementation."""
@@ -80,6 +85,11 @@ class Plugin:
 
         return action
 
+    {% if cookiecutter.include_processing|lower == "y" -%}
+    def initProcessing(self):  # noqa N802
+        self.provider = Provider()
+        QgsApplication.processingRegistry().addProvider(self.provider)
+    {% endif %}
     def initGui(self) -> None:  # noqa N802
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
         self.add_action(
@@ -89,7 +99,9 @@ class Plugin:
             parent=iface.mainWindow(),
             add_to_toolbar=False,
         )
-
+        {% if cookiecutter.include_processing|lower == "y" -%}
+        self.initProcessing()
+        {% endif %}
     def onClosePlugin(self) -> None:  # noqa N802
         """Cleanup necessary items here when plugin dockwidget is closed"""
         pass
@@ -99,7 +111,9 @@ class Plugin:
         for action in self.actions:
             iface.removePluginMenu(Plugin.name, action)
             iface.removeToolBarIcon(action)
-
+        {% if cookiecutter.include_processing|lower == "y" -%}
+        QgsApplication.processingRegistry().removeProvider(self.provider)
+        {% endif %}
     def run(self) -> None:
         """Run method that performs all the real work"""
         print("Hello QGIS plugin")
