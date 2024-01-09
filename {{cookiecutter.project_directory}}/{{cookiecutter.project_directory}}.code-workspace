@@ -5,7 +5,6 @@
 		}
 	],
 	"settings": {
-		"python.languageServer": "Jedi",
 		"editor.formatOnSave": true,
 		"[python]": {
 			"editor.defaultFormatter": "charliermarsh.ruff",
