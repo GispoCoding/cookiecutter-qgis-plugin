@@ -18,7 +18,6 @@
 			"test"
 		],
 		"python.testing.unittestEnabled": false,
-		"python.testing.nosetestsEnabled": false,
 		"python.defaultInterpreterPath": ".venv\\Scripts\\python.exe",
 	},
 	"launch": {
