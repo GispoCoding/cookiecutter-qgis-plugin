@@ -24,22 +24,5 @@
     "_copy_without_render": [
         ".github/workflows/release.yml",
         "docs/push_translations.yml"
-    ],
-    "__prompts__": {
-        "plugin_name": "Select a name for your plugin",
-        "project_directory": "Name of the project directory",
-        "plugin_package": "Name of the plugin package",
-        "git_repo_hosting": "Select your git repo platform",
-        "git_repo_organization": "Name of your git platform organization/user",
-        "git_repo_url": "Verify your git repo url",
-        "ci_provider": "Select which CI provider you want to use",
-        "add_vscode_config": "Do you want to add VS Code settings files?",
-        "license": "Select a license for your plugin",
-        "use_qgis_plugin_tools": "Do you want to use QGIS Plugin Tools utility library?",
-        "linting": {
-            "__prompts__": "How do you want to lint(format) your code?",
-            "hatch": "Use curated linting and formatting rules from Hatch project (recommended)",
-            "minimal": "Use minimal set of linting rules"
-        }
-    }
+    ]
 }

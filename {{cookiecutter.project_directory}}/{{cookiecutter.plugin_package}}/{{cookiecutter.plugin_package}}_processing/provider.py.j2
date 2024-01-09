@@ -1,6 +1,6 @@
 from qgis.core import QgsProcessingProvider
 
-from .processing_algorithm import ProcessingAlgorithm
+from {{cookiecutter.plugin_package}}.{{cookiecutter.plugin_package}}_processing.processing_algorithm import ProcessingAlgorithm  # type: ignore[import-not-found]
 
 
 class Provider(QgsProcessingProvider):

@@ -1,6 +1,8 @@
-from typing import Any, Dict
+from __future__ import annotations
 
-from qgis import processing
+from typing import Any
+
+from qgis import processing  # noqa: TCH002
 from qgis.core import (
     QgsFeatureSink,
     QgsProcessing,
@@ -113,13 +115,11 @@ class ProcessingAlgorithm(QgsProcessingAlgorithm):
         # We add a feature sink in which to store our processed features (this
         # usually takes the form of a newly created vector layer when the
         # algorithm is run in QGIS).
-        self.addParameter(
-            QgsProcessingParameterFeatureSink(self.OUTPUT, self.tr("Output layer"))
-        )
+        self.addParameter(QgsProcessingParameterFeatureSink(self.OUTPUT, self.tr("Output layer")))
 
     def processAlgorithm(  # noqa N802
         self,
-        parameters: Dict[str, Any],
+        parameters: dict[str, Any],
         context: QgsProcessingContext,
         feedback: QgsProcessingFeedback,
     ) -> dict:
