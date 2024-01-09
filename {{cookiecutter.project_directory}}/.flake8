@@ -1,9 +1,3 @@
 [flake8]
-# Black compatible values https://black.readthedocs.io/en/stable/compatible_configs.html#flake8
-max-line-length = 88
-exclude = test_*
-extend-ignore =
-    # E203: whitespace before ':'
-    E203,
-    # ANN101: Missing type annotation for self in method
-    ANN101
+# Flake8 is used only for QGIS rules. Ruff is used for all other rules.
+select = QGS

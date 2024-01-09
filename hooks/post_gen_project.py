@@ -101,6 +101,10 @@ def remove_temp_folders():
         _remove_dir(folder)
 
 
+def _remove_ruff_defaults():
+    _remove_file("ruff_defaults.toml")
+
+
 def remove_vscode_files():
     _remove_dir(".vscode")
     _remove_file("{{cookiecutter.project_directory}}.code-workspace")
@@ -147,6 +151,9 @@ def main():
 
     if "{{ cookiecutter.include_processing }}".lower() == "n":
         remove_processing_files()
+
+    if "{{ cookiecutter.linting }}".lower() != "hatch":
+        _remove_ruff_defaults()
 
     remove_temp_folders()
     write_dependencies()
