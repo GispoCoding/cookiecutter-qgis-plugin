@@ -1,4 +1,6 @@
-from typing import Callable, List, Optional
+from __future__ import annotations
+
+from typing import Callable
 
 {% if cookiecutter.include_processing|lower == "y" -%}
 from qgis.core import QgsApplication
@@ -7,10 +9,10 @@ from qgis.PyQt.QtCore import QCoreApplication, QTranslator
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QWidget
 from qgis.utils import iface
+
 {% if cookiecutter.include_processing|lower == "y" -%}
 from {{cookiecutter.plugin_package}}.{{cookiecutter.plugin_package}}_processing.provider import Provider
 {% endif -%}
-
 {% if cookiecutter.plugin_package|length < 7 -%}
 from {{cookiecutter.plugin_package}}.qgis_plugin_tools.tools.custom_logging import setup_logger, teardown_logger
 {% else -%}
@@ -41,7 +43,7 @@ class Plugin:
         else:
             pass
 
-        self.actions: List[QAction] = []
+        self.actions: list[QAction] = []
         self.menu = Plugin.name
 
     def add_action(
@@ -49,12 +51,13 @@ class Plugin:
         icon_path: str,
         text: str,
         callback: Callable,
+        *,
         enabled_flag: bool = True,
         add_to_menu: bool = True,
         add_to_toolbar: bool = True,
-        status_tip: Optional[str] = None,
-        whats_this: Optional[str] = None,
-        parent: Optional[QWidget] = None,
+        status_tip: str | None = None,
+        whats_this: str | None = None,
+        parent: QWidget | None = None,
     ) -> QAction:
         """Add a toolbar icon to the toolbar.
 
@@ -114,7 +117,8 @@ class Plugin:
     def initProcessing(self):  # noqa N802
         self.provider = Provider()
         QgsApplication.processingRegistry().addProvider(self.provider)
-    {% endif %}
+
+    {% endif -%}
     def initGui(self) -> None:  # noqa N802
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
         self.add_action(
@@ -124,12 +128,12 @@ class Plugin:
             parent=iface.mainWindow(),
             add_to_toolbar=False,
         )
-        {% if cookiecutter.include_processing|lower == "y" -%}
+{%- if cookiecutter.include_processing|lower == "y" %}
         self.initProcessing()
-        {% endif %}
+{%- endif %}
+
     def onClosePlugin(self) -> None:  # noqa N802
         """Cleanup necessary items here when plugin dockwidget is closed"""
-        pass
 
     def unload(self) -> None:
         """Removes the plugin menu item and icon from QGIS GUI."""
@@ -137,9 +141,10 @@ class Plugin:
             iface.removePluginMenu(Plugin.name, action)
             iface.removeToolBarIcon(action)
         teardown_logger(Plugin.name)
-        {% if cookiecutter.include_processing|lower == "y" -%}
+{%- if cookiecutter.include_processing|lower == "y" %}
         QgsApplication.processingRegistry().removeProvider(self.provider)
-        {% endif %}
+{%- endif %}
+
     def run(self) -> None:
         """Run method that performs all the real work"""
-        print("Hello QGIS plugin")
+        print("Hello QGIS plugin")  # noqa: T201
