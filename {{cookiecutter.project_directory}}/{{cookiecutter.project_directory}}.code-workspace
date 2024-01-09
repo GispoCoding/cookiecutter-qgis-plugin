@@ -6,16 +6,20 @@
 	],
 	"settings": {
 		"python.languageServer": "Jedi",
+		"editor.formatOnSave": true,
+		"[python]": {
+			"editor.defaultFormatter": "charliermarsh.ruff",
+			"editor.codeActionsOnSave": {
+				"source.organizeImports": "explicit",
+				"source.fixAll": "explicit"
+			}
+		},
 		"python.testing.pytestEnabled": true,
 		"python.testing.pytestArgs": [
 			"test"
 		],
 		"python.testing.unittestEnabled": false,
 		"python.testing.nosetestsEnabled": false,
-		"python.linting.enabled": true,
-		"python.linting.flake8Enabled": true,
-		"python.linting.mypyEnabled": true,
-		"python.linting.pylintEnabled": false,
 		"python.defaultInterpreterPath": ".venv\\Scripts\\python.exe",
 	},
 	"launch": {

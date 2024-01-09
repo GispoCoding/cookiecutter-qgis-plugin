@@ -1,9 +1,33 @@
-[tool.isort]
-# Black compatible values for isort https://black.readthedocs.io/en/stable/compatible_configs.html#isort
-profile = "black"
-
 [tool.pytest.ini_options]
 addopts = "-v"
 
+
 [tool.coverage.report]
 omit = ["{{cookiecutter.plugin_package}}/qgis_plugin_tools/*"]
+
+
+[tool.ruff]
+target-version = "py38"
+
+{%- if cookiecutter.linting == "hatch" %}
+extend = "ruff_defaults.toml"
+{%- else %}
+select = [
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings
+    "F", # pyflakes
+    "I", # isort
+    "C", # flake8-comprehensions
+    "B", # flake8-bugbear
+    "N", # pep8-naming
+]
+{%- endif %}
+
+unfixable = [
+    "F401", # unused imports
+    "F841", # unused variables
+]
+
+{% if cookiecutter.use_qgis_plugin_tools|lower != "n" -%}
+exclude = ["{{cookiecutter.plugin_package}}/qgis_plugin_tools"]
+{% endif -%}
