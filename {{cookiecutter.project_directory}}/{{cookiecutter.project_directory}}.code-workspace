@@ -17,8 +17,7 @@
 		"python.testing.pytestArgs": [
 			"test"
 		],
-		"python.testing.unittestEnabled": false,
-		"python.defaultInterpreterPath": ".venv\\Scripts\\python.exe",
+		"python.testing.unittestEnabled": false
 	},
 	"launch": {
 		"configurations": [
