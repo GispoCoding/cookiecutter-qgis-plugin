@@ -1,13 +1,14 @@
+from __future__ import annotations
+
 import copy
 import subprocess
 import sys
-from typing import TYPE_CHECKING, Dict
+from typing import TYPE_CHECKING
 
 import pytest
 from cookiecutter.exceptions import FailedHookException, UndefinedVariableInTemplate
 
 if TYPE_CHECKING:
-    from pytest import FixtureRequest
     from pytest_cookies.plugin import Cookies, Result
 
 LONG_PACKAGE_NAME = "hyperextralongpackagenametomessupimportformatting"
@@ -30,8 +31,8 @@ def session_context():
 
 
 @pytest.fixture
-def context(session_context: Dict[str, str]):
-    yield copy.deepcopy(session_context)
+def context(session_context: dict[str, str]):
+    return copy.deepcopy(session_context)
 
 
 SUPPORTED_COMBINATIONS = [
@@ -51,30 +52,28 @@ UNSUPPORTED_COMBINATIONS = [
 ]
 
 
-def _fixture_id(ctx: Dict[str, str]):
+def _fixture_id(ctx: dict[str, str]):
     """Helper to get a user friendly test name from the parametrized context."""
     return "-".join(f"{key}:{value}" for key, value in ctx.items())
 
 
 @pytest.fixture(scope="session", params=SUPPORTED_COMBINATIONS, ids=_fixture_id)
 def baked_project(
-    cookies_session: "Cookies",
-    session_context: Dict[str, str],
-    request: "FixtureRequest",
-) -> "Result":
+    cookies_session: Cookies,
+    session_context: dict[str, str],
+    request: pytest.FixtureRequest,
+) -> Result:
     context_override = request.param
-    baked_project = cookies_session.bake(
-        extra_context={**session_context, **context_override}
-    )
+    baked_project = cookies_session.bake(extra_context={**session_context, **context_override})
     if isinstance(baked_project.exception, UndefinedVariableInTemplate):
-        print(baked_project.exception.message)
-        print(f"Error message: {baked_project.exception.error.message}")
+        print(baked_project.exception.message)  # noqa: T201
+        print(f"Error message: {baked_project.exception.error.message}")  # noqa: T201
         sys.exit(1)
 
     return baked_project
 
 
-def test_project_generation(baked_project: "Result"):
+def test_project_generation(baked_project: Result):
     """Test that project is generated and fully rendered."""
 
     assert baked_project.project_path.name == baked_project.context["project_directory"]
@@ -97,32 +96,26 @@ def run_cli_command(command: str, cwd: str):
         pytest.fail("Command timeouted")
 
 
-def test_ruff_linting_passes(baked_project: "Result"):
+def test_ruff_linting_passes(baked_project: Result):
     """Generated project should pass ruff check."""
 
     if baked_project.context["plugin_package"] == LONG_PACKAGE_NAME:
-        pytest.xfail(
-            reason="long package names makes imports to be reformatted. TODO: fix"
-        )
+        pytest.xfail(reason="long package names makes imports to be reformatted. TODO: fix")
 
     run_cli_command("ruff check .", cwd=str(baked_project.project_path))
 
 
-def test_ruff_formating_passes(baked_project: "Result"):
+def test_ruff_formatting_passes(baked_project: Result):
     """Generated project should pass ruff formatting."""
 
     if baked_project.context["plugin_package"] == LONG_PACKAGE_NAME:
-        pytest.xfail(
-            reason="long package names makes imports to be reformatted. TODO: fix"
-        )
+        pytest.xfail(reason="long package names makes imports to be reformatted. TODO: fix")
 
     run_cli_command("ruff format .", cwd=str(baked_project.project_path))
 
 
 @pytest.mark.parametrize("package_name", ["invalid name", "1plugin"])
-def test_invalid_package_name(
-    cookies: "Cookies", context: Dict[str, str], package_name: str
-):
+def test_invalid_package_name(cookies: Cookies, context: dict[str, str], package_name: str):
     """Invalid package name should fail in pre-generation hook."""
     context.update({"plugin_package": package_name})
 
@@ -133,9 +126,7 @@ def test_invalid_package_name(
 
 
 @pytest.mark.parametrize("invalid_context", UNSUPPORTED_COMBINATIONS)
-def test_error_if_incompatible(
-    cookies: "Cookies", context: Dict[str, str], invalid_context: Dict[str, str]
-):
+def test_error_if_incompatible(cookies: Cookies, context: dict[str, str], invalid_context: dict[str, str]):
     """It should not generate project an incompatible combination is selected."""
     context.update(invalid_context)
     result = cookies.bake(extra_context=context)

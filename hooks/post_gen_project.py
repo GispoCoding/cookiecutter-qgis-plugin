@@ -1,10 +1,11 @@
+from __future__ import annotations
+
 import logging
 import os
 import shutil
 import subprocess
 import sys
 from pathlib import Path
-from typing import List
 
 logger = logging.getLogger(__name__)
 
@@ -25,9 +26,9 @@ def warn(message: str) -> None:
     print(f"{Colors.WARNING}Warning: {message}{Colors.ENDC}")
 
 
-def _run(args: List[str]) -> None:
+def _run(args: list[str]) -> None:
     try:
-        logger.info(f'Running command "{" ".join(args)}"')
+        logger.info('Running command "%s"', " ".join(args))
         subprocess.run(
             args,
             capture_output=True,
