@@ -4,24 +4,10 @@ testpaths = "tests"
 
 
 [tool.ruff]
-select = [
-    "E", # pycodestyle errors
-    "W", # pycodestyle warnings
-    "F", # pyflakes
-    "I", # isort
-    "C", # flake8-comprehensions
-    "B", # flake8-bugbear
-    "N", # pep8-naming
-]
-ignore = []
+extend = "ruff_defaults.toml"
 
-# Allow fix for all enabled rules (when `--fix`) is provided.
-fixable = ["ALL"]
+target-version = "py38"
 unfixable = [
     "F401", # unused imports
     "F841", # unused variables
 ]
-
-line-length = 88
-
-target-version = "py38"
