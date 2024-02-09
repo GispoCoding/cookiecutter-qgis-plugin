@@ -7,7 +7,7 @@ from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QWidget
 from qgis.utils import iface
 {% if cookiecutter.include_processing|lower == "y" -%}
-from {{cookiecutter.plugin_package}}.processing.provider import Provider
+from {{cookiecutter.plugin_package}}.{{cookiecutter.plugin_package}}_processing.provider import Provider
 {% endif -%}
 
 class Plugin:
