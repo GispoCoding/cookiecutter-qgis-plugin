@@ -1,4 +1,6 @@
+{% if cookiecutter.use_qgis_plugin_tools|lower == "y" %}
 import os
+{% endif %}
 
 from qgis.gui import QgisInterface
 {% if cookiecutter.use_qgis_plugin_tools|lower == "y" %}
