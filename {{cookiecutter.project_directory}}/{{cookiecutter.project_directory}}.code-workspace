@@ -1,51 +1,51 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {
-		"editor.formatOnSave": true,
-		"[python]": {
-			"editor.defaultFormatter": "charliermarsh.ruff",
-			"editor.codeActionsOnSave": {
-				"source.organizeImports": "explicit",
-				"source.fixAll": "explicit"
-			}
-		},
-		"python.testing.pytestEnabled": true,
-		"python.testing.pytestArgs": [
-			"test"
-		],
-		"python.testing.unittestEnabled": false
-	},
-	"extensions": {
-		"recommendations": [
-			"ms-python.python",
-			"ms-python.flake8",
-			"ms-python.mypy-type-checker",
-			"charliermarsh.ruff",
-			"editorconfig.editorconfig"
-		]
-	},
-	"launch": {
-		"configurations": [
-			{
-				"name": "QGIS debugpy",
-				"type": "python",
-				"request": "attach",
-				"connect": {
-					"host": "localhost",
-					"port": 5678
-				},
-				"pathMappings": [
-					{
-						"localRoot": "${workspaceFolder}/{{cookiecutter.plugin_package}}",
-						"remoteRoot": "C:/Users/${env:USERNAME}/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/{{cookiecutter.plugin_package}}"
-					}
-				]
-			},
-			{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "editor.formatOnSave": true,
+        "[python]": {
+            "editor.defaultFormatter": "charliermarsh.ruff",
+            "editor.codeActionsOnSave": {
+                "source.organizeImports": "explicit",
+                "source.fixAll": "explicit"
+            }
+        },
+        "python.testing.pytestEnabled": true,
+        "python.testing.pytestArgs": [
+            "test"
+        ],
+        "python.testing.unittestEnabled": false
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-python.python",
+            "ms-python.flake8",
+            "ms-python.mypy-type-checker",
+            "charliermarsh.ruff",
+            "editorconfig.editorconfig"
+        ]
+    },
+    "launch": {
+        "configurations": [
+            {
+                "name": "QGIS debugpy",
+                "type": "python",
+                "request": "attach",
+                "connect": {
+                    "host": "localhost",
+                    "port": 5678
+                },
+                "pathMappings": [
+                    {
+                        "localRoot": "${workspaceFolder}/{{cookiecutter.plugin_package}}",
+                        "remoteRoot": "C:/Users/${env:USERNAME}/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/{{cookiecutter.plugin_package}}"
+                    }
+                ]
+            },
+            {
                 "name": "Debug Tests",
                 "type": "python",
                 "request": "test",
@@ -55,6 +55,6 @@
                     "PYTEST_ADDOPTS": "--no-cov"
                 }
             }
-		],
-	}
+        ],
+    }
 }
