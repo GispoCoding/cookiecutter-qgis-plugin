@@ -123,7 +123,7 @@ def remove_jinja_extensions():
 
 
 def remove_processing_files():
-    _remove_dir("{{cookiecutter.project_directory}}/{{cookiecutter.plugin_package}}_processing")
+    _remove_dir("{{cookiecutter.plugin_package}}/{{cookiecutter.plugin_package}}_processing")
 
 
 def main():
