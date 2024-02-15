@@ -30,4 +30,12 @@ unfixable = [
 
 {% if cookiecutter.use_qgis_plugin_tools|lower != "n" -%}
 exclude = ["{{cookiecutter.plugin_package}}/qgis_plugin_tools"]
+
+[[tool.mypy.overrides]]
+module = "{{cookiecutter.plugin_package}}.qgis_plugin_tools.*"
+ignore_errors = true
+
 {% endif -%}
+[[tool.mypy.overrides]]
+module = ["qgis.*", "osgeo.*"]
+ignore_missing_imports = true
