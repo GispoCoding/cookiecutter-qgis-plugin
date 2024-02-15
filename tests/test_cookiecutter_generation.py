@@ -111,7 +111,7 @@ def test_ruff_formatting_passes(baked_project: Result):
     if baked_project.context["plugin_package"] == LONG_PACKAGE_NAME:
         pytest.xfail(reason="long package names makes imports to be reformatted. TODO: fix")
 
-    run_cli_command("ruff format .", cwd=str(baked_project.project_path))
+    run_cli_command("ruff format --check .", cwd=str(baked_project.project_path))
 
 
 @pytest.mark.parametrize("package_name", ["invalid name", "1plugin"])
