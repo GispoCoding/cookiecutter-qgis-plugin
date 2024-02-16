@@ -1,11 +1,11 @@
 [tool.pytest.ini_options]
 addopts = "-v"
 
-
+{% if cookiecutter.use_qgis_plugin_tools|lower != "n" -%}
 [tool.coverage.report]
 omit = ["{{cookiecutter.plugin_package}}/qgis_plugin_tools/*"]
 
-
+{% endif -%}
 [tool.ruff]
 target-version = "py38"
 
