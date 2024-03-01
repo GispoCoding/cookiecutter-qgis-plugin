@@ -3,6 +3,7 @@ from __future__ import annotations
 import logging
 import os
 import shutil
+import stat
 import subprocess
 import sys
 from pathlib import Path
@@ -66,6 +67,8 @@ def add_plugin_tools():
             "{{cookiecutter.plugin_package}}/qgis_plugin_tools",
         ]
     )
+    build_scrirpt = Path("{{cookiecutter.plugin_package}}/build.py")
+    build_scrirpt.chmod(build_scrirpt.stat().st_mode | stat.S_IXUSR)
 
 
 def remove_plugin_tools():
