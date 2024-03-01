@@ -9,6 +9,8 @@ import pytest
 from cookiecutter.exceptions import FailedHookException, UndefinedVariableInTemplate
 
 if TYPE_CHECKING:
+    from pathlib import Path
+
     from pytest_cookies.plugin import Cookies, Result
 
 LONG_PACKAGE_NAME = "hyperextralongpackagenametomessupimportformatting"
@@ -136,3 +138,76 @@ def test_error_if_incompatible(cookies: Cookies, context: dict[str, str], invali
 
     assert result.exit_code != 0
     assert isinstance(result.exception, FailedHookException)
+
+
+class TestOptInFeaturesRemoved:
+    @pytest.fixture(scope="class")
+    def baked_project(self, cookies_session: Cookies) -> Result:
+        extra_context = {
+            "plugin_name": "My QGIS plugin",
+            "ci_provider": "None",
+            "add_vscode_config": "n",
+            "include_processing": "n",
+            "license": "GPL2",
+            "use_qgis_plugin_tools": "n",
+        }
+        return cookies_session.bake(extra_context=extra_context)
+
+    @pytest.fixture(scope="class")
+    def project_path(self, baked_project: Result) -> Path:
+        assert baked_project.project_path
+        return baked_project.project_path
+
+    def test_no_vscode(self, baked_project: Result, project_path: Path) -> None:
+        assert not (project_path / f"{baked_project.context['project_directory']}.code-workspace").exists()
+
+    def test_no_github(self, project_path: Path) -> None:
+        assert not (project_path / ".github").is_dir()
+
+    def test_no_processing(self, baked_project: Result, project_path: Path) -> None:
+        assert not (project_path / f"{baked_project.context['plugin_package']}_processing").is_dir()
+
+    def test_no_plugin_tools(self, baked_project: Result, project_path: Path) -> None:
+        assert not (project_path / baked_project.context["plugin_package"] / "qgis_plugin_tools").is_dir()
+
+    def test_no_licenses_dir(self, project_path: Path) -> None:
+        assert not (project_path / "licenses").is_dir()
+
+
+class TestOptInFeaturesIncluded:
+    @pytest.fixture(scope="class")
+    def baked_project(self, cookies_session: Cookies) -> Result:
+        extra_context = {
+            "plugin_name": "My QGIS plugin",
+            "ci_provider": "GitHub",
+            "add_vscode_config": "y",
+            "include_processing": "y",
+            "license": "GPL2",
+            "use_qgis_plugin_tools": "y",
+        }
+        return cookies_session.bake(extra_context=extra_context)
+
+    @pytest.fixture(scope="class")
+    def project_path(self, baked_project: Result) -> Path:
+        assert baked_project.project_path
+        return baked_project.project_path
+
+    def test_has_vscode(self, baked_project: Result, project_path: Path) -> None:
+        assert (project_path / f"{baked_project.context['project_directory']}.code-workspace").exists()
+
+    def test_has_github(self, project_path: Path) -> None:
+        assert (project_path / ".github").is_dir()
+
+    def test_has_processing(self, baked_project: Result, project_path: Path) -> None:
+        processing_directory = (
+            project_path
+            / baked_project.context["plugin_package"]
+            / f"{baked_project.context['plugin_package']}_processing"
+        )
+        assert processing_directory.is_dir()
+
+    def test_has_plugin_tools(self, baked_project: Result, project_path: Path) -> None:
+        assert (project_path / baked_project.context["plugin_package"] / "qgis_plugin_tools").is_dir()
+
+    def test_no_licenses_dir(self, project_path: Path) -> None:
+        assert not (project_path / "licenses").is_dir()
