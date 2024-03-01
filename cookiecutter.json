@@ -25,6 +25,9 @@
         ".github/workflows/release.yml",
         "docs/push_translations.yml"
     ],
+    "_extensions": [
+        "local_extensions.selected"
+    ],
     "__prompts__": {
         "plugin_name": "Select a name for your plugin",
         "project_directory": "Name of the project directory",

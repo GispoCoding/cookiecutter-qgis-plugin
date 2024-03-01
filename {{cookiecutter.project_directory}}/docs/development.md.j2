@@ -1,7 +1,7 @@
 Development of {{cookiecutter.project_directory}} plugin
 ===========================
 
-{% if cookiecutter.use_qgis_plugin_tools|lower != "n" -%}
+{% if cookiecutter.use_qgis_plugin_tools| selected -%}
 This project uses [qgis_plugin_tools](https://github.com/{{cookiecutter.git_repo_organization}}/qgis_plugin_tools) submodule,
 so set git setting value: `git config --global submodule.recurse true`.
 
@@ -19,7 +19,7 @@ The code for the plugin is in the [{{cookiecutter.plugin_package}}](../{{cookiec
 Qt with Qt Editor and Qt Linquist installed by following this
 [tutorial](https://www.qgistutorials.com/en/docs/3/building_a_python_plugin.html#get-the-tools).
 
-{% if cookiecutter.use_qgis_plugin_tools|lower != "n" -%}
+{% if cookiecutter.use_qgis_plugin_tools| selected -%}
 For building the plugin use platform independent [build.py](../{{cookiecutter.project_directory}}/build.py) script.
 
 ## Setting up development environment
@@ -71,12 +71,12 @@ If you create or edit source files make sure that:
     from ..utils.exceptions import TestException # Bad
 
     ```
-{%- if cookiecutter.use_qgis_plugin_tools|lower != "n" %}
+{%- if cookiecutter.use_qgis_plugin_tools| selected %}
 * they will be found by [build.py](../{{cookiecutter.plugin_package}}/build.py) script (`py_files` and `ui_files` values)
 {% endif %}
 * you consider adding test files for the new functionality
 
-{%- if cookiecutter.use_qgis_plugin_tools|lower != "n" %}
+{%- if cookiecutter.use_qgis_plugin_tools| selected %}
 ## Deployment
 
 Edit [build.py](../{{cookiecutter.plugin_package}}/build.py) to contain working values for *profile*, *lrelease* and *pyrcc*. If you are
@@ -136,7 +136,7 @@ lrelease section as well. You can however pull manually to test the process.
 
 * Run `qgis-plugin-ci pull-translation --compile <your-transifex-token>`
 
-{%- if cookiecutter.use_qgis_plugin_tools|lower != "n" -%}
+{%- if cookiecutter.use_qgis_plugin_tools| selected -%}
 #### Translating with QT Linguistic (if Transifex not available)
 
 The translation files are in [i18n](../{{cookiecutter.project_directory}}/resources/i18n) folder. Translatable content in python files is
