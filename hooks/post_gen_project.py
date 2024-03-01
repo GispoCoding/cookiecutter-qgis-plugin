@@ -16,6 +16,10 @@ QGIS_PLUGIN_TOOLS_SPECIFIC_FILES = (
 )
 
 
+def is_true(value: str) -> bool:
+    return value == "True"
+
+
 class Colors:
     WARNING = "\033[93m"
     FAIL = "\033[91m"
@@ -135,12 +139,12 @@ def main():
 
     git_init()
 
-    if "{{ cookiecutter.use_qgis_plugin_tools }}".lower() != "n":
+    if is_true("{{ cookiecutter.use_qgis_plugin_tools | selected }}"):
         add_plugin_tools()
     else:
         remove_plugin_tools()
 
-    if "{{ cookiecutter.add_vscode_config }}".lower() == "n":
+    if not is_true("{{ cookiecutter.add_vscode_config | selected }}"):
         remove_vscode_files()
 
     if "{{ cookiecutter.git_repo_url }}":
@@ -149,7 +153,7 @@ def main():
     if "{{ cookiecutter.ci_provider }}".lower() != "github":
         remove_github_files()
 
-    if "{{ cookiecutter.include_processing }}".lower() == "n":
+    if not is_true("{{ cookiecutter.include_processing | selected }}"):
         remove_processing_files()
 
     if "{{ cookiecutter.linting }}".lower() != "hatch":

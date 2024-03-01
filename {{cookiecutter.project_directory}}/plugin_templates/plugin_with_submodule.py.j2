@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Callable
 
-{% if cookiecutter.include_processing|lower == "y" -%}
+{% if cookiecutter.include_processing| selected -%}
 from qgis.core import QgsApplication
 {% endif -%}
 from qgis.PyQt.QtCore import QCoreApplication, QTranslator
@@ -10,8 +10,7 @@ from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QWidget
 from qgis.utils import iface
 
-{% if cookiecutter.include_processing|lower == "y" -%}
-from {{cookiecutter.plugin_package}}.{{cookiecutter.plugin_package}}_processing.provider import Provider
+{% if cookiecutter.include_processing| selected -%}
 {% endif -%}
 {% if cookiecutter.plugin_package|length < 7 -%}
 from {{cookiecutter.plugin_package}}.qgis_plugin_tools.tools.custom_logging import setup_logger, teardown_logger
@@ -113,7 +112,7 @@ class Plugin:
 
         return action
 
-    {% if cookiecutter.include_processing|lower == "y" -%}
+    {% if cookiecutter.include_processing| selected -%}
     def initProcessing(self):  # noqa N802
         self.provider = Provider()
         QgsApplication.processingRegistry().addProvider(self.provider)
@@ -128,7 +127,7 @@ class Plugin:
             parent=iface.mainWindow(),
             add_to_toolbar=False,
         )
-{%- if cookiecutter.include_processing|lower == "y" %}
+{%- if cookiecutter.include_processing| selected %}
         self.initProcessing()
 {%- endif %}
 
@@ -141,7 +140,7 @@ class Plugin:
             iface.removePluginMenu(Plugin.name, action)
             iface.removeToolBarIcon(action)
         teardown_logger(Plugin.name)
-{%- if cookiecutter.include_processing|lower == "y" %}
+{%- if cookiecutter.include_processing| selected %}
         QgsApplication.processingRegistry().removeProvider(self.provider)
 {%- endif %}
 

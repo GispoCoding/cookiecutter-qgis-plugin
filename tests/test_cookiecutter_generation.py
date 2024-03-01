@@ -22,9 +22,9 @@ def session_context():
         "plugin_package": "plugin",
         "git_repo_organization": "my-org",
         "git_repo_url": "https://github.com/my-org/my-qgis-plugin",
-        "ci_provider": "GitHub",
+        "ci_provider": "None",
         "add_vscode_config": "n",
-        "add_pycharm_config": "n",
+        "include_processing": "n",
         "license": "GPL2",
         "use_qgis_plugin_tools": "n",  # to make test run faster
     }
@@ -36,14 +36,12 @@ def context(session_context: dict[str, str]):
 
 
 SUPPORTED_COMBINATIONS = [
+    {},
     {"plugin_package": LONG_PACKAGE_NAME},
-    {"ci_provider": "GitHub"},
     {"ci_provider": "None"},
     {"add_vscode_config": "y"},
-    {"add_vscode_config": "n"},
-    {"add_pycharm_config": "y"},
-    {"add_pycharm_config": "n"},
-    {"license": "GPL2"},
+    {"include_processing": "y"},
+    {"use_qgis_plugin_tools": "y"},
     {"license": "GPL3"},
 ]
 
@@ -54,6 +52,8 @@ UNSUPPORTED_COMBINATIONS = [
 
 def _fixture_id(ctx: dict[str, str]):
     """Helper to get a user friendly test name from the parametrized context."""
+    if not ctx:
+        return "default"
     return "-".join(f"{key}:{value}" for key, value in ctx.items())
 
 
@@ -75,6 +75,9 @@ def baked_project(
 
 def test_project_generation(baked_project: Result):
     """Test that project is generated and fully rendered."""
+
+    assert baked_project.exit_code == 0
+    assert baked_project.exception is None
 
     assert baked_project.project_path.name == baked_project.context["project_directory"]
     assert baked_project.project_path.is_dir()
