@@ -51,7 +51,7 @@ source .venv/bin/activate # On Windows run: .venv/Scripts/activate
 # Install pip-tools dependency manager
 pip install pip-tools
 # Install/sync development dependencies
-pip-sync  # This will sync dependecies in the current environment to mach the ones in requirements.txt
+pip-sync  # This will sync dependencies in the current environment to mach the ones in requirements.txt
 ```
 
 ### Update dependencies

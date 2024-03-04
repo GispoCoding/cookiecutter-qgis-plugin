@@ -67,8 +67,8 @@ def add_plugin_tools():
             "{{cookiecutter.plugin_package}}/qgis_plugin_tools",
         ]
     )
-    build_scrirpt = Path("{{cookiecutter.plugin_package}}/build.py")
-    build_scrirpt.chmod(build_scrirpt.stat().st_mode | stat.S_IXUSR)
+    build_script = Path("{{cookiecutter.plugin_package}}/build.py")
+    build_script.chmod(build_script.stat().st_mode | stat.S_IXUSR)
 
 
 def remove_plugin_tools():
@@ -98,7 +98,7 @@ def write_dependencies():
         )
     except subprocess.CalledProcessError:
         warn(
-            "Updating dependecies failed. Do you have the pip-tools installed? "
+            "Updating dependencies failed. Do you have the pip-tools installed? "
             'Run "pip-compile requirements-dev.in" manually in your plugin folder.'
         )
 
