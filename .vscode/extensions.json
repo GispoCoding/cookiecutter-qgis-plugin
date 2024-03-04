@@ -3,6 +3,7 @@
         "charliermarsh.ruff",
         "samuelcolvin.jinjahtml",
         "ms-python.python",
-        "editorconfig.editorconfig"
+        "editorconfig.editorconfig",
+        "tekumara.typos-vscode"
     ]
 }
