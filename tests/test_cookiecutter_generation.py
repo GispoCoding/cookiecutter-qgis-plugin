@@ -38,12 +38,13 @@ def context(session_context: dict[str, str]):
 
 
 SUPPORTED_COMBINATIONS = [
-    {},
+    {},  # test with default values
     {"plugin_package": LONG_PACKAGE_NAME},
     {"ci_provider": "None"},
     {"add_vscode_config": True},
     {"include_processing": True},
-    {"use_qgis_plugin_tools": True},
+    {"use_qgis_plugin_tools": True, "include_processing": True},
+    {"use_qgis_plugin_tools": True, "include_processing": False},
     {"license": "GPL3"},
 ]
 
