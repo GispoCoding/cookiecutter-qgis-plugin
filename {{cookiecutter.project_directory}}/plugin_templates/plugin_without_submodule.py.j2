@@ -2,13 +2,13 @@ from __future__ import annotations
 
 from typing import Callable
 
-{% if cookiecutter.include_processing| selected -%}
+{% if cookiecutter.include_processing -%}
 from qgis.core import QgsApplication
 {% endif -%}
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QWidget
 from qgis.utils import iface
-{%- if cookiecutter.include_processing| selected %}
+{%- if cookiecutter.include_processing %}
 
 from {{cookiecutter.plugin_package}}.{{cookiecutter.plugin_package}}_processing.provider import Provider
 {%- endif %}
@@ -90,7 +90,7 @@ class Plugin:
 
         return action
 
-    {% if cookiecutter.include_processing| selected -%}
+    {% if cookiecutter.include_processing -%}
     def initProcessing(self):  # noqa N802
         self.provider = Provider()
         QgsApplication.processingRegistry().addProvider(self.provider)
@@ -105,7 +105,7 @@ class Plugin:
             parent=iface.mainWindow(),
             add_to_toolbar=False,
         )
-{%- if cookiecutter.include_processing| selected %}
+{%- if cookiecutter.include_processing %}
         self.initProcessing()
 {%- endif %}
 
@@ -117,7 +117,7 @@ class Plugin:
         for action in self.actions:
             iface.removePluginMenu(Plugin.name, action)
             iface.removeToolBarIcon(action)
-{%- if cookiecutter.include_processing| selected %}
+{%- if cookiecutter.include_processing %}
         QgsApplication.processingRegistry().removeProvider(self.provider)
 {%- endif %}
 

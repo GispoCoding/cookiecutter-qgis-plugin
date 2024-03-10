@@ -142,12 +142,12 @@ def main():
 
     git_init()
 
-    if is_true("{{ cookiecutter.use_qgis_plugin_tools | selected }}"):
+    if is_true("{{ cookiecutter.use_qgis_plugin_tools }}"):
         add_plugin_tools()
     else:
         remove_plugin_tools()
 
-    if not is_true("{{ cookiecutter.add_vscode_config | selected }}"):
+    if not is_true("{{ cookiecutter.add_vscode_config }}"):
         remove_vscode_files()
 
     if "{{ cookiecutter.git_repo_url }}":
@@ -156,7 +156,7 @@ def main():
     if "{{ cookiecutter.ci_provider }}".lower() != "github":
         remove_github_files()
 
-    if not is_true("{{ cookiecutter.include_processing | selected }}"):
+    if not is_true("{{ cookiecutter.include_processing }}"):
         remove_processing_files()
 
     if "{{ cookiecutter.linting }}".lower() != "hatch":

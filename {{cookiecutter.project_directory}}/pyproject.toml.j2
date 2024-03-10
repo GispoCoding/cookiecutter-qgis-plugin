@@ -1,7 +1,7 @@
 [tool.pytest.ini_options]
 addopts = "-v"
 
-{% if cookiecutter.use_qgis_plugin_tools| selected -%}
+{% if cookiecutter.use_qgis_plugin_tools -%}
 [tool.coverage.report]
 omit = ["{{cookiecutter.plugin_package}}/qgis_plugin_tools/*"]
 
@@ -28,7 +28,7 @@ unfixable = [
     "F841", # unused variables
 ]
 
-{% if cookiecutter.use_qgis_plugin_tools| selected -%}
+{% if cookiecutter.use_qgis_plugin_tools -%}
 exclude = ["{{cookiecutter.plugin_package}}/qgis_plugin_tools"]
 
 [[tool.mypy.overrides]]
