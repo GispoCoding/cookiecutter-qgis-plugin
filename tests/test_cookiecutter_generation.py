@@ -68,7 +68,7 @@ def baked_project(
     if isinstance(baked_project.exception, UndefinedVariableInTemplate):
         print(baked_project.exception.message)  # noqa: T201
         print(f"Error message: {baked_project.exception.error.message}")  # noqa: T201
-        sys.exit(1)
+        pytest.fail("Undefined variable in template")
 
     return baked_project
 
