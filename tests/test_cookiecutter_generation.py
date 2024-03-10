@@ -85,11 +85,10 @@ def test_project_generation(baked_project: Result):
     assert baked_project.project_path.is_dir()
 
 
-def run_cli_command(command: str, cwd: str):
-    cmd = command.split()
+def run_cli_command(args: list[str], cwd: str):
     try:
         subprocess.check_output(
-            cmd,
+            args,
             cwd=cwd,
             timeout=20,
             universal_newlines=True,
@@ -107,7 +106,7 @@ def test_ruff_linting_passes(baked_project: Result):
     if baked_project.context["plugin_package"] == LONG_PACKAGE_NAME:
         pytest.xfail(reason="long package names makes imports to be reformatted. TODO: fix")
 
-    run_cli_command("ruff check .", cwd=str(baked_project.project_path))
+    run_cli_command([sys.executable, "-m", "ruff", "check", "."], cwd=str(baked_project.project_path))
 
 
 def test_ruff_formatting_passes(baked_project: Result):
@@ -116,7 +115,7 @@ def test_ruff_formatting_passes(baked_project: Result):
     if baked_project.context["plugin_package"] == LONG_PACKAGE_NAME:
         pytest.xfail(reason="long package names makes imports to be reformatted. TODO: fix")
 
-    run_cli_command("ruff format --check .", cwd=str(baked_project.project_path))
+    run_cli_command([sys.executable, "-m", "ruff", "format", "--check", "."], cwd=str(baked_project.project_path))
 
 
 @pytest.mark.parametrize("package_name", ["invalid name", "1plugin"])
