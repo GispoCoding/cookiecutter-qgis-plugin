@@ -29,11 +29,10 @@ the one with the path `.venv\Scripts\python.exe`.
 
 {% endif -%}
 ## License
-This plugin is licenced with
-{%- if cookiecutter.license == "GPL2" -%}
+This plugin is distributed under the terms of the {% if cookiecutter.license == "GPL2" -%}
 [GNU General Public License, version 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 {%- elif cookiecutter.license == "GPL3" -%}
 [GNU General Public License, version 3](https://www.gnu.org/licenses/gpl-3.0.html)
-{% endif %}
+{%- endif %} license.
 
 See [LICENSE](LICENSE) for more information.
