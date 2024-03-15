@@ -1,8 +1,8 @@
-{% if cookiecutter.use_qgis_plugin_tools| selected -%}
+{% if cookiecutter.use_qgis_plugin_tools -%}
 import os
 {% endif -%}
 from typing import TYPE_CHECKING
-{%- if cookiecutter.use_qgis_plugin_tools| selected %}
+{%- if cookiecutter.use_qgis_plugin_tools %}
 
 from {{cookiecutter.plugin_package}}.qgis_plugin_tools.infrastructure.debugging import (
     setup_debugpy,  # noqa F401
@@ -13,7 +13,7 @@ from {{cookiecutter.plugin_package}}.qgis_plugin_tools.infrastructure.debugging 
 
 if TYPE_CHECKING:
     from qgis.gui import QgisInterface
-{%- if cookiecutter.use_qgis_plugin_tools| selected %}
+{%- if cookiecutter.use_qgis_plugin_tools %}
 
 debugger = os.environ.get("QGIS_PLUGIN_USE_DEBUGGER", "").lower()
 if debugger in {"debugpy", "ptvsd", "pydevd"}:

@@ -1,4 +1,4 @@
-{%- if cookiecutter.use_qgis_plugin_tools| selected -%}
+{%- if cookiecutter.use_qgis_plugin_tools -%}
 {%- include 'plugin_templates/plugin_with_submodule.py.j2' -%}
 {%- else -%}
 {%- include 'plugin_templates/plugin_without_submodule.py.j2' -%}

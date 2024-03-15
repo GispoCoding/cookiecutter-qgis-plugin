@@ -25,10 +25,10 @@ def session_context():
         "git_repo_organization": "my-org",
         "git_repo_url": "https://github.com/my-org/my-qgis-plugin",
         "ci_provider": "None",
-        "add_vscode_config": "n",
-        "include_processing": "n",
+        "add_vscode_config": False,
+        "include_processing": False,
         "license": "GPL2",
-        "use_qgis_plugin_tools": "n",  # to make test run faster
+        "use_qgis_plugin_tools": False,  # to make test run faster
     }
 
 
@@ -41,9 +41,9 @@ SUPPORTED_COMBINATIONS = [
     {},
     {"plugin_package": LONG_PACKAGE_NAME},
     {"ci_provider": "None"},
-    {"add_vscode_config": "y"},
-    {"include_processing": "y"},
-    {"use_qgis_plugin_tools": "y"},
+    {"add_vscode_config": True},
+    {"include_processing": True},
+    {"use_qgis_plugin_tools": True},
     {"license": "GPL3"},
 ]
 
@@ -145,10 +145,10 @@ class TestOptInFeaturesRemoved:
         extra_context = {
             "plugin_name": "My QGIS plugin",
             "ci_provider": "None",
-            "add_vscode_config": "n",
-            "include_processing": "n",
+            "add_vscode_config": False,
+            "include_processing": False,
             "license": "GPL2",
-            "use_qgis_plugin_tools": "n",
+            "use_qgis_plugin_tools": False,
         }
         return cookies_session.bake(extra_context=extra_context)
 
@@ -179,10 +179,10 @@ class TestOptInFeaturesIncluded:
         extra_context = {
             "plugin_name": "My QGIS plugin",
             "ci_provider": "GitHub",
-            "add_vscode_config": "y",
-            "include_processing": "y",
+            "add_vscode_config": True,
+            "include_processing": True,
             "license": "GPL2",
-            "use_qgis_plugin_tools": "y",
+            "use_qgis_plugin_tools": True,
         }
         return cookies_session.bake(extra_context=extra_context)
 

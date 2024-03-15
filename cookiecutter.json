@@ -9,14 +9,14 @@
         "GitHub",
         "None"
     ],
-    "add_vscode_config": "n",
+    "add_vscode_config": true,
     "license": [
         "GPL2",
         "GPL3",
         "other"
     ],
-    "include_processing": "n",
-    "use_qgis_plugin_tools": "y",
+    "include_processing": false,
+    "use_qgis_plugin_tools": true,
     "linting": [
         "hatch",
         "minimal"
@@ -24,9 +24,6 @@
     "_copy_without_render": [
         ".github/workflows/release.yml",
         "docs/push_translations.yml"
-    ],
-    "_extensions": [
-        "local_extensions.selected"
     ],
     "__prompts__": {
         "plugin_name": "Select a name for your plugin",
