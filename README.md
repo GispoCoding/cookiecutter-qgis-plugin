@@ -70,3 +70,7 @@ pip-sync
 git add requirements.in requirements.txt
 git commit -m "Update development dependencies"
 ```
+
+### Update create_qgis_venv.py
+
+Download the create_qgis_venv.py script from https://github.com/GispoCoding/qgis-venv-creator/releases and add the script to the `{{cookiecutter.plugin_name}}` folder without modifying.
