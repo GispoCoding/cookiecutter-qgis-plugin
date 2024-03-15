@@ -24,6 +24,9 @@ For more detailed development instructions see [development](docs/development.md
 {% if cookiecutter.add_vscode_config | selected -%}
 ### VsCode setup
 
+On VS Code use the workspace [{{cookiecutter.project_directory}}.code-workspace]({{cookiecutter.project_directory}}.code-workspace).
+The workspace contains all the settings and extensions needed for development.
+
 Select the Python interpreter with Command Palette (Ctrl+Shift+P). Select `Python: Select Interpreter` and choose
 the one with the path `.venv\Scripts\python.exe`.
 
