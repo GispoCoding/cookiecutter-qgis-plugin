@@ -13,8 +13,6 @@ if TYPE_CHECKING:
 
     from pytest_cookies.plugin import Cookies, Result
 
-LONG_PACKAGE_NAME = "hyperextralongpackagenametomessupimportformatting"
-
 
 @pytest.fixture(scope="session")
 def session_context():
@@ -38,12 +36,12 @@ def context(session_context: dict[str, str]):
 
 
 SUPPORTED_COMBINATIONS = [
-    {},
-    {"plugin_package": LONG_PACKAGE_NAME},
+    {},  # test with default values
     {"ci_provider": "None"},
     {"add_vscode_config": True},
     {"include_processing": True},
-    {"use_qgis_plugin_tools": True},
+    {"use_qgis_plugin_tools": True, "include_processing": True},
+    {"use_qgis_plugin_tools": True, "include_processing": False},
     {"license": "GPL3"},
 ]
 
@@ -70,7 +68,7 @@ def baked_project(
     if isinstance(baked_project.exception, UndefinedVariableInTemplate):
         print(baked_project.exception.message)  # noqa: T201
         print(f"Error message: {baked_project.exception.error.message}")  # noqa: T201
-        sys.exit(1)
+        pytest.fail("Undefined variable in template")
 
     return baked_project
 
@@ -103,17 +101,11 @@ def run_cli_command(args: list[str], cwd: str):
 def test_ruff_linting_passes(baked_project: Result):
     """Generated project should pass ruff check."""
 
-    if baked_project.context["plugin_package"] == LONG_PACKAGE_NAME:
-        pytest.xfail(reason="long package names makes imports to be reformatted. TODO: fix")
-
     run_cli_command([sys.executable, "-m", "ruff", "check", "."], cwd=str(baked_project.project_path))
 
 
 def test_ruff_formatting_passes(baked_project: Result):
     """Generated project should pass ruff formatting."""
-
-    if baked_project.context["plugin_package"] == LONG_PACKAGE_NAME:
-        pytest.xfail(reason="long package names makes imports to be reformatted. TODO: fix")
 
     run_cli_command([sys.executable, "-m", "ruff", "format", "--check", "."], cwd=str(baked_project.project_path))
 
