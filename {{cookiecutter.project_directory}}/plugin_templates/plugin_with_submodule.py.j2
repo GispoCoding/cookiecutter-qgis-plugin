@@ -10,10 +10,9 @@ from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QWidget
 from qgis.utils import iface
 
-{%- if cookiecutter.include_processing %}
-
+{% if cookiecutter.include_processing -%}
 from {{cookiecutter.plugin_package}}.{{cookiecutter.plugin_package}}_processing.provider import Provider
-{%- endif %}
+{% endif -%}
 {% if cookiecutter.plugin_package|length < 7 -%}
 from {{cookiecutter.plugin_package}}.qgis_plugin_tools.tools.custom_logging import setup_logger, teardown_logger
 {% else -%}
