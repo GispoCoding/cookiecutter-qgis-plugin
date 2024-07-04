@@ -118,6 +118,14 @@ def remove_processing_files():
     _remove_dir("{{cookiecutter.project_directory}}/processing")
 
 
+def git_commit(message: str, *descriptions: str) -> None:
+    _run(["git", "add", "."])
+    commit_command = ["git", "commit", "-m", message]
+    for description in descriptions:
+        commit_command.extend(["-m", description])
+    _run(commit_command)
+
+
 def print_next_steps():
     console = Console()
     console.print()
@@ -172,6 +180,8 @@ def main():
         _remove_ruff_defaults()
 
     remove_temp_folders()
+
+    git_commit("Initial commit", "Project created with the Cookiecutter QGIS Plugin Template.")
 
     print_next_steps()
 
