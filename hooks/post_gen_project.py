@@ -2,11 +2,15 @@ from __future__ import annotations
 
 import logging
 import os
+import platform
 import shutil
 import stat
 import subprocess
-import sys
 from pathlib import Path
+from textwrap import dedent
+
+from rich.console import Console
+from rich.syntax import Syntax
 
 logger = logging.getLogger(__name__)
 
@@ -80,29 +84,6 @@ def add_remote():
     _run(["git", "remote", "add", "origin", "{{cookiecutter.git_repo_url}}"])
 
 
-def write_dependencies():
-    try:
-        subprocess.run(
-            [
-                sys.executable,
-                "-m",
-                "piptools",
-                "compile",
-                "--upgrade",
-                "-o",
-                "requirements-dev.txt",
-                "requirements-dev.in",
-            ],
-            capture_output=True,
-            check=True,
-        )
-    except subprocess.CalledProcessError:
-        warn(
-            "Updating dependencies failed. Do you have the pip-tools installed? "
-            'Run "pip-compile requirements-dev.in" manually in your plugin folder.'
-        )
-
-
 def remove_temp_folders():
     for folder in ALL_TEMP_FOLDERS:
         _remove_dir(folder)
@@ -137,6 +118,34 @@ def remove_processing_files():
     _remove_dir("{{cookiecutter.project_directory}}/processing")
 
 
+def print_next_steps():
+    console = Console()
+    console.print()
+    console.print(f"The plugin project was generated to {os.getcwd()}")
+    console.print("Here's the next steps you should take:")
+
+    venv_activation_command = (
+        ".venv\\scripts\\activate" if platform.system() == "Windows" else "source .venv/bin/activate"
+    )
+    content = Syntax(
+        dedent(
+            f"""\
+            cd {{ cookiecutter.project_directory }}
+            python create_qgis_venv.py
+            {venv_activation_command}
+            python -m pip install -U pip
+            pip install pip-tools
+            pip-compile requirements-dev.in
+            pip install -r requirements-dev.txt
+            """
+        ),
+        "console",
+        theme="monokai",
+        line_numbers=False,
+    )
+    console.print(content)
+
+
 def main():
     remove_jinja_extensions()
 
@@ -163,7 +172,8 @@ def main():
         _remove_ruff_defaults()
 
     remove_temp_folders()
-    write_dependencies()
+
+    print_next_steps()
 
 
 if __name__ == "__main__":
