@@ -14,12 +14,35 @@
 
 ## Development
 
-Create a virtual environment with the following command:
+Create a virtual environment activate it and install needed dependencies with the following commands:
 ```console
 python create_qgis_venv.py
+.venv\Scripts\activate # On Linux and macOS run `source .venv\bin\activate`
+pip install -r requirements-dev.txt
 ```
 
 For more detailed development instructions see [development](docs/development.md).
+
+### Testing the plugin on QGIS
+
+A symbolic link / directory junction should be made to the directory containing the installed plugins pointing to the dev plugin package.
+
+On Windows Command promt
+```console
+mklink /J %AppData%\QGIS\QGIS3\profiles\default\python\plugins\{{cookiecutter.plugin_package}} .\{{cookiecutter.plugin_package}}
+```
+
+On Windows PowerShell
+```console
+New-Item -ItemType SymbolicLink -Path ${env:APPDATA}\QGIS\QGIS3\profiles\default\python\plugins\{{cookiecutter.plugin_package}} -Value ${pwd}\{{cookiecutter.plugin_package}}
+```
+
+On Linux
+```console
+ln -s {{cookiecutter.plugin_package}}/ ~/.local/share/QGIS/QGIS3/profiles/default/python/plugins/{{cookiecutter.plugin_package}}
+```
+
+After that you should be able to enable the plugin in the QGIS Plugin Manager.
 
 {% if cookiecutter.add_vscode_config -%}
 ### VsCode setup

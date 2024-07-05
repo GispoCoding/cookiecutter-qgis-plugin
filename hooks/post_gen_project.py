@@ -152,6 +152,7 @@ def print_next_steps():
         line_numbers=False,
     )
     console.print(content)
+    console.print("See the README.md for how to enable the plugin in QGIS.")
 
 
 def main():
