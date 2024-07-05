@@ -3,7 +3,7 @@
 exclude: "{{cookiecutter.project_directory}}"
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -11,16 +11,16 @@ repos:
       - id: check-toml
       - id: check-added-large-files
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.11
+    rev: v0.5.0
     hooks:
       - id: ruff
         args: ["--extend-fixable=F841,F401"]
       - id: ruff-format
   - repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.5.4
+    rev: v1.5.5
     hooks:
       - id: forbid-tabs
   - repo: https://github.com/crate-ci/typos
-    rev: v1.19.0
+    rev: v1.23.0
     hooks:
       - id: typos
