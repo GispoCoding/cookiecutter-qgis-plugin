@@ -5,16 +5,18 @@ testpaths = "tests"
 
 [tool.ruff]
 extend = "ruff_defaults.toml"
-
 target-version = "py38"
+
+extend-exclude = ["[{][{]cookiecutter.project_directory[}][}]"]
+
+
+[tool.ruff.lint]
 unfixable = [
     "F401", # unused imports
     "F841", # unused variables
 ]
 
-extend-exclude = ["[{][{]cookiecutter.project_directory[}][}]"]
-
-[tool.ruff.extend-per-file-ignores]
+[tool.ruff.lint.extend-per-file-ignores]
 "hooks/*" = [
     "INP001", # Hooks folder is not a python package
     "T201",   # Hooks are allowed to use print statements

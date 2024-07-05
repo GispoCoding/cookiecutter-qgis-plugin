@@ -13,7 +13,6 @@ Usage:
 python create_qgis_venv.py [--help] [--venv-parent <path-to-venv-parent-directory>] [--venv-name <venv-name>]
 """
 
-
 from __future__ import annotations
 
 import argparse
@@ -39,12 +38,10 @@ if TYPE_CHECKING:
 
     class SupportsVenvCreation(Protocol):
         @classmethod
-        def create_venv(cls, *args: Any, **kwargs: Any) -> Path:
-            ...
+        def create_venv(cls, *args: Any, **kwargs: Any) -> Path: ...
 
         @staticmethod
-        def cli_arguments() -> list[CliArg]:
-            ...
+        def cli_arguments() -> list[CliArg]: ...
 
 
 __version__ = "0.1.0"

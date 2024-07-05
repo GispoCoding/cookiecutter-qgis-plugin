@@ -11,7 +11,13 @@ target-version = "py38"
 
 {%- if cookiecutter.linting == "hatch" %}
 extend = "ruff_defaults.toml"
-{%- else %}
+{% endif %}
+
+{% if cookiecutter.use_qgis_plugin_tools -%}
+exclude = ["{{cookiecutter.plugin_package}}/qgis_plugin_tools"]
+{% endif %}
+[tool.ruff.lint]
+{%- if cookiecutter.linting != "hatch" %}
 select = [
     "E", # pycodestyle errors
     "W", # pycodestyle warnings
@@ -29,7 +35,6 @@ unfixable = [
 ]
 
 {% if cookiecutter.use_qgis_plugin_tools -%}
-exclude = ["{{cookiecutter.plugin_package}}/qgis_plugin_tools"]
 
 [[tool.mypy.overrides]]
 module = "{{cookiecutter.plugin_package}}.qgis_plugin_tools.*"
