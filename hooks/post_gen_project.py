@@ -115,7 +115,7 @@ def remove_jinja_extensions():
 
 
 def remove_processing_files():
-    _remove_dir("{{cookiecutter.project_directory}}/processing")
+    _remove_dir("{{cookiecutter.plugin_package}}/{{cookiecutter.plugin_package}}_processing")
 
 
 def git_commit(message: str, *descriptions: str) -> None:

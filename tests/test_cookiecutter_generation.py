@@ -8,6 +8,8 @@ from typing import TYPE_CHECKING
 import pytest
 from cookiecutter.exceptions import FailedHookException, UndefinedVariableInTemplate
 
+from tests.testing_utils import processing_directory_exitst
+
 if TYPE_CHECKING:
     from pathlib import Path
 
@@ -156,7 +158,7 @@ class TestOptInFeaturesRemoved:
         assert not (project_path / ".github").is_dir()
 
     def test_no_processing(self, baked_project: Result, project_path: Path) -> None:
-        assert not (project_path / f"{baked_project.context['plugin_package']}_processing").is_dir()
+        assert not processing_directory_exitst(baked_project, project_path)
 
     def test_no_plugin_tools(self, baked_project: Result, project_path: Path) -> None:
         assert not (project_path / baked_project.context["plugin_package"] / "qgis_plugin_tools").is_dir()
@@ -190,12 +192,7 @@ class TestOptInFeaturesIncluded:
         assert (project_path / ".github").is_dir()
 
     def test_has_processing(self, baked_project: Result, project_path: Path) -> None:
-        processing_directory = (
-            project_path
-            / baked_project.context["plugin_package"]
-            / f"{baked_project.context['plugin_package']}_processing"
-        )
-        assert processing_directory.is_dir()
+        assert processing_directory_exitst(baked_project, project_path)
 
     def test_has_plugin_tools(self, baked_project: Result, project_path: Path) -> None:
         assert (project_path / baked_project.context["plugin_package"] / "qgis_plugin_tools").is_dir()
